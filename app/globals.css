@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -12,10 +12,75 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  /* TYPOGRAPHY  */
+  .d1-bold {
+    @apply max-md:text-[27px] text-[31px] md:leading-[40px] font-bold text-black-800 dark:text-white-100;
+  }
+  .d2-bold {
+    @apply text-2xl font-bold text-black-800 dark:text-white-100;
+  }
+  .h1-medium {
+    @apply text-[20px] leading-[28px] font-medium text-black-800 dark:text-white-200;
+  }
+  .h2-medium {
+    @apply text-base font-medium text-black-800 dark:text-white-200;
+  }
+  .p1-bold {
+    @apply text-[18px] leading-[21.6px] font-bold text-black-800 dark:text-white-200; /* DOBRO */
+  }
+  .p2-bold {
+    @apply text-base font-bold dark:text-white-200 text-black-800; /* DOBRO */
+  }
+  .p3-bold {
+    @apply text-[14px] leading-[24px] font-bold text-black-800 dark:text-white-100; /* DOBRO */
+  }
+  .p4-bold {
+    @apply text-xs font-bold text-black-700 dark:text-white-400;
+  }
+  .p1-medium {
+    @apply text-[14px] md:!text-[18px] leading-[20px] font-medium text-white-400 dark:text-white-300; /* DOBRO */
+  }
+  .p2-medium {
+    @apply text-base font-medium text-black-800 dark:text-white-200; /* DOBRO */
+  }
+  .p3-medium {
+    @apply text-sm font-medium text-black-800 dark:text-white-200; /* DOBRO */
+  }
+  .p4-medium {
+    @apply text-[10px] md:text-xs font-medium text-black-800 dark:text-white-200; /* DOBRO */
+  }
+  .p1-regular {
+    @apply text-[18px] leading-[20px] font-normal text-black-800 dark:text-white-100;
+  }
+  .p2-regular {
+    @apply text-base font-normal text-white-400 dark:text-white-300;
+  }
+  .p3-regular {
+    @apply text-sm font-normal text-white-400 dark:text-white-200; /* DOBRO*/
+  }
+  .p4-regular {
+    @apply text-xs font-normal text-white-400 dark:text-white-200; /* DOBRO*/
+  }
+  .subtitle-normal {
+    @apply text-[10px] leading-[14px] font-normal text-white-400;
+  }
+  .subtitle-medium {
+    @apply text-[10px] leading-[14px] font-normal text-white-400;
+  }
+  .cap-10 {
+    @apply text-[10px] leading-[13px] font-medium text-white-400;
+  }
+  .cap-8 {
+    @apply text-[8px] leading-[10.4px] font-medium text-white-400;
+  }
+  /* TYPOGRAPHY  */
 }
