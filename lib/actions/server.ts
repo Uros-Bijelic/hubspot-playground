@@ -6,7 +6,7 @@ type GetContactsArgs = {
 };
 
 export const getContacts = async ({
-  limit = 20,
+  limit = 30,
   archived = false,
 }: GetContactsArgs) => {
   const response = await fetch(
@@ -14,7 +14,7 @@ export const getContacts = async ({
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer pat-na1-144842ce-7e82-4ffb-a4b6-ed5ce258569c`,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
       },
     }
   );
