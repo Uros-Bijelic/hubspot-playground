@@ -1,25 +1,22 @@
 "use client";
 
-import { useEffect } from "react";
+import { getContacts } from "@/lib/actions/server";
+import { QueryKeys } from "@/lib/constants";
+import { useQuery } from "@tanstack/react-query";
 
-export default function Home() {
-  useEffect(() => {
-    const response = fetch(
-      "https://api.hubapi.com/crm/v3/objects/contacts?limit=30&archived=false",
-      {
-        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}` },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => console.log("data", data));
+const Home = () => {
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: [QueryKeys.CONTACTS],
+  //   queryFn: () => getContacts()}
 
-    console.log("response", response);
-    // console.log("respomnse", response);
-  }, []);
+  const { data, error, isLoading } = useQuery({
+    queryKey: [QueryKeys.CONTACTS],
+    queryFn: () => getContacts({}),
+  });
+
+  console.log("data iz react query-ja", data);
 
   return <h1>This is init commit</h1>;
-}
+};
 
-// curl --request GET \
-//   --url 'https://api.hubapi.com/crm/v3/objects/contacts?limit=10&archived=false' \
-//   --header 'authorization: Bearer YOUR_ACCESS_TOKEN'
+export default Home;
