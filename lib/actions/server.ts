@@ -14,7 +14,7 @@ export const getContacts = async ({
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
+        Authorization: `Bearer ${process.env.HUBSPOT_API_KEY}`,
       },
     }
   );
