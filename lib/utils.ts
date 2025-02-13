@@ -5,13 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-type TypedFetch = {
-  url: string;
-  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD";
-  headers?: { [key: string]: string };
-  body?: object;
-  cache?: RequestCache;
-};
+// type TypedFetch = {
+//   url: string;
+//   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD";
+//   headers?: { [key: string]: string };
+//   body?: object;
+//   cache?: RequestCache;
+// };
 
 // export const typedFetch = async <T extends object>({
 //   url,
