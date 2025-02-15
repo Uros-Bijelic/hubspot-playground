@@ -20,11 +20,14 @@ export const getContacts = async ({
         archived,
       },
     });
+    console.log("response", response);
     return response.data;
   } catch (error) {
     console.log("Error getting contacts", error);
     if (error instanceof Error) {
       console.log("Error getting contacts", error.message);
+
+      throw new Error(error.message);
     }
   }
 };
