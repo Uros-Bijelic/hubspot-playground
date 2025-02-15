@@ -1,5 +1,9 @@
 "use server";
 
+import { axios } from "@/api";
+
+// ----------------------------------------------------------------
+
 type GetContactsArgs = {
   limit?: number;
   archived?: boolean;
@@ -9,19 +13,18 @@ export const getContacts = async ({
   limit = 30,
   archived = false,
 }: GetContactsArgs) => {
-  const response = await fetch(
-    `https://api.hubapi.com/crm/v3/objects/contacts?limit=${limit}&archived=${archived}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.HUBSPOT_API_KEY}`,
+  try {
+    const response = await axios.get(`/api/contacts`, {
+      params: {
+        limit,
+        archived,
       },
+    });
+    return response.data;
+  } catch (error) {
+    console.log("Error getting contacts", error);
+    if (error instanceof Error) {
+      console.log("Error getting contacts", error.message);
     }
-  );
-
-  if (!response.ok) {
-    throw new Error("Something went wrong");
   }
-
-  return response.json();
 };

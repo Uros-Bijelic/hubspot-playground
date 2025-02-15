@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  // console.log(
-  //   "request NextRequest TO STRING",
-  //   req.nextUrl.searchParams.toString()
-  // );
+  const BASE_URL = process.env.HUBSPOT_BASE_URL || "";
 
   const response = await fetch(
-    `https://api.hubapi.com/crm/v3/objects/contacts?${req.nextUrl.searchParams.toString()}`,
+    `${BASE_URL}/contacts?${req.nextUrl.searchParams.toString()}`,
     {
       headers: {
         "Content-Type": "application/json",
