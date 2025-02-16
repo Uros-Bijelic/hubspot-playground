@@ -1,7 +1,5 @@
 import { axios } from '.';
 
-// ----------------------------------------------------------------
-
 type GetContactsArgs = {
   limit?: number;
   archived?: boolean;
@@ -15,6 +13,7 @@ export const getContacts = async ({ limit = 30, archived = false }: GetContactsA
         archived,
       },
     });
+
     return response.data;
   } catch (error) {
     console.log('Error getting contacts', error);

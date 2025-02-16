@@ -1,3 +1,4 @@
 export enum QueryKeys {
-  CONTACTS = "contacts",
+  CONTACTS = 'contacts',
+  OWNERS = 'owners',
 }
