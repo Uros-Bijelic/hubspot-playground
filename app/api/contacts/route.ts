@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
-    const response = await axios.get(`/contacts?${req.nextUrl.searchParams.toString()}`);
+    const response = await axios.get(`objects/contacts?${req.nextUrl.searchParams.toString()}`);
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {

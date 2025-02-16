@@ -1,10 +1,5 @@
 import { axios } from '.';
 
-// type GetOwnersArgs = {
-//   limit?: number;
-//   archived?: boolean;
-// };
-
 export const getOwners = async () => {
   try {
     const response = await axios.get(`/api/owners`);
