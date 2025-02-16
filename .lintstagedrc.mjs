@@ -1,10 +1,9 @@
-import { relative } from "path";
+import { relative } from 'path';
 
 const buildEslintCommand = (filenames) =>
-  `next lint --fix --file ${filenames
-    .map((f) => relative(process.cwd(), f))
-    .join(" --file ")}`;
+  `next lint --fix --file ${filenames.map((f) => relative(process.cwd(), f)).join(' --file ')}`;
 
 export default {
-  "*.{js,jsx,ts,tsx}": [buildEslintCommand],
+  '*.{js,jsx,ts,tsx}': [buildEslintCommand],
+  '**/*': 'prettier --write --ignore-unknown',
 };

@@ -1,22 +1,35 @@
-import { NextRequest, NextResponse } from "next/server";
+import { axios } from '@/api';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  // console.log(
-  //   "request NextRequest TO STRING",
-  //   req.nextUrl.searchParams.toString()
-  // );
+  const BASE_URL = process.env.HUBSPOT_BASE_URL || '';
 
-  const response = await fetch(
-    `https://api.hubapi.com/crm/v3/objects/contacts?${req.nextUrl.searchParams.toString()}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
-      },
-    }
+  console.log(
+    '`${BASE_URL}/contacts?${req.nextUrl.searchParams.toString()}`',
+    `${BASE_URL}/contacts?${req.nextUrl.searchParams.toString()}`,
   );
 
-  const data = await response.json();
+  try {
+    const response = await axios.get(`${BASE_URL}/contacts?${req.nextUrl.searchParams.toString()}`);
 
-  return NextResponse.json({ ...data.results });
+    return NextResponse.json(response.data, { status: 200 });
+  } catch (error) {
+    if (error instanceof TypeError) {
+      return NextResponse.json(
+        {
+          message: 'Invalid data',
+        },
+        { status: 400 },
+      );
+    }
+
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          message: error.message || 'An unexpected error occurred',
+        },
+        { status: 500 },
+      );
+    }
+  }
 }

@@ -1,17 +1,15 @@
-"use client";
+'use client';
 
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { getContacts } from "@/lib/actions/server";
-import { QueryKeys } from "@/lib/constants";
-import { useQuery } from "@tanstack/react-query";
+import { getContacts } from '@/api/contacts';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { QueryKeys } from '@/lib/constants';
+import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
-  const { data, error, isLoading } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: [QueryKeys.CONTACTS],
     queryFn: () => getContacts({}),
   });
-
-  console.log("data", data);
 
   if (isLoading) {
     return <LoadingSpinner asOverlay />;
