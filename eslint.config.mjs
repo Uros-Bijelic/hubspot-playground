@@ -1,6 +1,7 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import { FlatCompat } from '@eslint/eslintrc';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,15 +11,8 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.config({
-    extends: ("next/core-web-vitals", "next/typescript"),
-    rules: {
-      "no-unused-vars": "warn",
-      "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-eslint/no-empty-object-type": "warn",
-      "@typescript-eslint/no-require-imports": "warn",
-    },
-  }),
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  eslintConfigPrettier,
 ];
 
 export default eslintConfig;

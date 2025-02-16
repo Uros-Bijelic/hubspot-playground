@@ -1,6 +1,4 @@
-"use server";
-
-import { axios } from "@/api";
+import { axios } from '.';
 
 // ----------------------------------------------------------------
 
@@ -9,10 +7,7 @@ type GetContactsArgs = {
   archived?: boolean;
 };
 
-export const getContacts = async ({
-  limit = 30,
-  archived = false,
-}: GetContactsArgs) => {
+export const getContacts = async ({ limit = 30, archived = false }: GetContactsArgs) => {
   try {
     const response = await axios.get(`/api/contacts`, {
       params: {
@@ -20,12 +15,11 @@ export const getContacts = async ({
         archived,
       },
     });
-    console.log("response", response);
     return response.data;
   } catch (error) {
-    console.log("Error getting contacts", error);
+    console.log('Error getting contacts', error);
     if (error instanceof Error) {
-      console.log("Error getting contacts", error.message);
+      console.log('Error getting contacts', error.message);
 
       throw new Error(error.message);
     }
