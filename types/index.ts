@@ -12,3 +12,16 @@ export interface IContactsDTO {
   updatedAt: string;
   archived: false;
 }
+
+export interface IOwnerDTO {
+  archived: boolean;
+  createdAt: string;
+  email: string;
+  firstName: string;
+  id: string;
+  lastName: string;
+  type: string;
+  updatedAt: string;
+  userId: number;
+  userIdIncludingInactive: number;
+}

@@ -21,64 +21,64 @@ body {
 @layer utilities {
   /* TYPOGRAPHY  */
   .d1-bold {
-    @apply text-black-800 dark:text-white-100 text-[31px] font-bold max-md:text-[27px] md:leading-[40px];
+    @apply text-[31px] font-bold max-md:text-[27px] md:leading-[40px];
   }
   .d2-bold {
-    @apply text-black-800 dark:text-white-100 text-2xl font-bold;
+    @apply text-2xl font-bold;
   }
   .h1-medium {
-    @apply text-black-800 dark:text-white-200 text-[20px] font-medium leading-[28px];
+    @apply text-[20px] font-medium leading-[28px];
   }
   .h2-medium {
-    @apply text-black-800 dark:text-white-200 text-base font-medium;
+    @apply text-base font-medium;
   }
   .p1-bold {
-    @apply text-black-800 dark:text-white-200 text-[18px] font-bold leading-[21.6px]; /* DOBRO */
+    @apply text-[18px] font-bold leading-[21.6px];
   }
   .p2-bold {
-    @apply dark:text-white-200 text-black-800 text-base font-bold; /* DOBRO */
+    @apply text-base font-bold;
   }
   .p3-bold {
-    @apply text-black-800 dark:text-white-100 text-[14px] font-bold leading-[24px]; /* DOBRO */
+    @apply text-[14px] font-bold leading-[24px];
   }
   .p4-bold {
-    @apply text-black-700 dark:text-white-400 text-xs font-bold;
+    @apply text-xs font-bold;
   }
   .p1-medium {
-    @apply text-white-400 dark:text-white-300 text-[14px] font-medium leading-[20px] md:!text-[18px]; /* DOBRO */
+    @apply text-[14px] font-medium leading-[20px] md:!text-[18px];
   }
   .p2-medium {
-    @apply text-black-800 dark:text-white-200 text-base font-medium; /* DOBRO */
+    @apply text-base font-medium;
   }
   .p3-medium {
-    @apply text-black-800 dark:text-white-200 text-sm font-medium; /* DOBRO */
+    @apply text-sm font-medium;
   }
   .p4-medium {
-    @apply text-black-800 dark:text-white-200 text-[10px] font-medium md:text-xs; /* DOBRO */
+    @apply text-[10px] font-medium md:text-xs;
   }
   .p1-regular {
-    @apply text-black-800 dark:text-white-100 text-[18px] font-normal leading-[20px];
+    @apply text-[18px] font-normal leading-[20px];
   }
   .p2-regular {
-    @apply text-white-400 dark:text-white-300 text-base font-normal;
+    @apply text-base font-normal;
   }
   .p3-regular {
-    @apply text-white-400 dark:text-white-200 text-sm font-normal; /* DOBRO*/
+    @apply text-sm font-normal;
   }
   .p4-regular {
-    @apply text-white-400 dark:text-white-200 text-xs font-normal; /* DOBRO*/
+    @apply text-xs font-normal;
   }
   .subtitle-normal {
-    @apply text-white-400 text-[10px] font-normal leading-[14px];
+    @apply text-[10px] font-normal leading-[14px];
   }
   .subtitle-medium {
-    @apply text-white-400 text-[10px] font-normal leading-[14px];
+    @apply text-[10px] font-normal leading-[14px];
   }
   .cap-10 {
-    @apply text-white-400 text-[10px] font-medium leading-[13px];
+    @apply text-[10px] font-medium leading-[13px];
   }
   .cap-8 {
-    @apply text-white-400 text-[8px] font-medium leading-[10.4px];
+    @apply text-[8px] font-medium leading-[10.4px];
   }
   /* TYPOGRAPHY  */
 
