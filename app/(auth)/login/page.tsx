@@ -45,6 +45,7 @@ const Login = () => {
   const onSubmit = () => {
     if (isSuccessCurrentOwner && currentOwner) {
       setCurrentOwner(currentOwner);
+      localStorage.setItem('currentUserId', currentOwner.id);
       router.push('/');
     }
   };

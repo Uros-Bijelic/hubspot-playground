@@ -1,12 +1,19 @@
 'use client';
 
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { useAuthContext } from '@/context/auth-context';
 import { useGetContacts } from '@/lib/hooks/queries/use-get-contacts';
+import { useGetSpecificOwner } from '@/lib/hooks/queries/use-get-specific-owner';
+
+// import LoadingSpinner from '@/components/ui/LoadingSpinner';
+// import { useAuthContext } from '@/context/auth-context';
+// import { useGetContacts } from '@/lib/hooks/queries/use-get-contacts';
 
 const Home = () => {
-  const { isLoading } = useGetContacts();
-  const { owner } = useAuthContext();
+  const { isLoading, data: contactsData, error: contactError } = useGetContacts();
+  const { data: owner } = useGetSpecificOwner({});
+
+  console.log('contactsData', contactsData);
+  console.log('error', contactError);
 
   const ownerFullName = `${owner?.firstName} ${owner?.lastName}`;
 
@@ -14,10 +21,17 @@ const Home = () => {
     return <LoadingSpinner asOverlay />;
   }
 
+  if (!owner) {
+    return <div className="h1-medium mx-auto my-5 text-center">User in not authenticated!</div>;
+  }
+
   return (
-    <div className="w-full border border-red-500">
-      <h2 className="d2-bold">Welcome {ownerFullName}</h2>
-      <div className=""></div>
+    <div className="flex flex-1 flex-col gap-4 p-4 sm:gap-8 sm:p-5">
+      <h2 className="d2-bold">Hello {ownerFullName}</h2>
+      <div className="flex">
+        <div className="border-2 border-red-500">LEFT</div>
+        <div className="border-2 border-green-500">RIGHT</div>
+      </div>
     </div>
   );
 };

@@ -11,7 +11,6 @@ export const getContacts = async (limit = 10, archived = false) => {
 
     return response.data;
   } catch (error) {
-    console.log('Error getting contacts', error);
     if (error instanceof Error) {
       console.log('Error getting contacts', error.message);
 

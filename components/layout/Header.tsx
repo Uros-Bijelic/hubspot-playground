@@ -28,7 +28,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="flex-between h-14 bg-gray-200 px-2 sm:px-4">
+    <header className="flex-between h-14 bg-gray-200 px-2 shadow-md sm:px-4">
       <Link href="/">
         <ScrollIcon width={34} height={34} className="transition-colors hover:text-violet-500" />
       </Link>
