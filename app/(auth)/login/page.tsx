@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { Button } from '@/components/ui/button';
+import HubspotButton from '@/components/ui/hubspot-button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import RHFSelect from '@/components/ui/RHFInputs/rhf-select';
 import { useGetOwners } from '@/lib/hooks/queries/use-get-owners';
@@ -22,24 +22,28 @@ const Login = () => {
       ownerId: '',
     },
   });
+  const { data, isPending, error } = useGetOwners();
 
   const {
-    watch,
     formState: { isValid, isSubmitting },
+    handleSubmit,
   } = methods;
-  console.log('wathc, ', watch());
 
-  const { data, isPending, error } = useGetOwners();
+  const onSubmit = (data: SignInUserSchema) => {
+    console.log('data', data);
+  };
 
   if (isPending) {
     return <LoadingSpinner asOverlay />;
   }
 
   if (!data || error) {
-    return <h2>{error ? error.message : 'You have to crate a new account on hubspot!'}</h2>;
+    return (
+      <section className="flex-center min-h-screen">
+        <h2>{error ? error.message : 'You have to crate a new account on hubspot!'}</h2>
+      </section>
+    );
   }
-
-  console.log('data', data.results);
 
   const selectOptions = data.results.map(({ id, email }) => ({ id, value: id, label: email }));
 
@@ -48,16 +52,16 @@ const Login = () => {
       <div className="center flex w-[min(320px,100%)] flex-col gap-2 p-6 shadow-xl">
         <h2 className="d2-bold">HubSpot Clone</h2>
         <FormProvider {...methods}>
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
             <RHFSelect
               options={selectOptions}
               name="ownerId"
               label="Current User"
               placeholder="Select account"
             />
-            <Button disabled={!isValid || isSubmitting} type="submit">
-              Sign In
-            </Button>
+            <HubspotButton disabled={!isValid || isSubmitting} type="submit">
+              {isSubmitting ? '...processing' : 'Sign In'}
+            </HubspotButton>
           </form>
         </FormProvider>
       </div>
