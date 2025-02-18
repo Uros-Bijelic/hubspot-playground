@@ -1,7 +1,7 @@
 'use client';
 
 import { Owner } from '@/types';
-import { createContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 
 type AuthContext = {
   owner: Owner | null;
@@ -21,7 +21,21 @@ const AuthContextProvider = ({ children }: AuthContextProvider) => {
     setOwner(owner);
   };
 
+  useEffect(() => {
+    console.log('owner', owner);
+  }, [owner]);
+
   return <AuthContext.Provider value={{ owner, setCurrentOwner }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContextProvider;
+
+export const useAuthContext = () => {
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error('AuthContext not used inside AuthContextProvider');
+  }
+
+  return authContext;
+};

@@ -1,21 +1,16 @@
 import { axios } from '@/api/axios.config';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
+  const id = (await params).id;
+
   try {
-    const response = await axios.get(`objects/contacts?${req.nextUrl.searchParams.toString()}`);
+    const response = await axios.get(`/owners/${id}`);
+    console.log('response', response.data);
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {
-    if (error instanceof TypeError) {
-      return NextResponse.json(
-        {
-          message: 'Invalid data',
-        },
-        { status: 400 },
-      );
-    }
-
+    console.log('Error FETCCHING SPECIFIC USER', error);
     if (error instanceof Error) {
       return NextResponse.json(
         {
@@ -25,4 +20,6 @@ export async function GET(req: NextRequest) {
       );
     }
   }
-}
+
+  return NextResponse.json({ data: 'radi ruta' });
+};

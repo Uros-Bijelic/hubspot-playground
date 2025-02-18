@@ -1,11 +1,9 @@
-import { axios } from '@/api';
+import { axios } from '@/api/axios.config';
 import { NextResponse } from 'next/server';
 
 export const GET = async () => {
   try {
-    const response = await axios.get(`owners`);
-
-    console.log('response u GET ruti', response);
+    const response = await axios.get(`/owners`);
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {

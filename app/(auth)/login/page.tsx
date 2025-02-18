@@ -5,8 +5,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import HubspotButton from '@/components/ui/hubspot-button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { useRouter } from 'next/navigation';
+
 import RHFSelect from '@/components/ui/RHFInputs/rhf-select';
+import { useAuthContext } from '@/context/auth-context';
 import { useGetOwners } from '@/lib/hooks/queries/use-get-owners';
+import { useGetSpecificOwner } from '@/lib/hooks/queries/use-get-specific-owner';
 import { z } from 'zod';
 
 export const signInUserSchema = z.object({
@@ -16,28 +20,47 @@ export const signInUserSchema = z.object({
 export type SignInUserSchema = z.infer<typeof signInUserSchema>;
 
 const Login = () => {
+  const router = useRouter();
   const methods = useForm({
     resolver: zodResolver(signInUserSchema),
     defaultValues: {
       ownerId: '',
     },
   });
-  const { data, isPending, error } = useGetOwners();
+  const { setCurrentOwner } = useAuthContext();
+  const { data: allOwners, isPending: isPendingAllOwners, error } = useGetOwners();
 
   const {
     formState: { isValid, isSubmitting },
     handleSubmit,
+    getValues,
   } = methods;
 
-  const onSubmit = (data: SignInUserSchema) => {
-    console.log('data', data);
+  const ownerId = getValues('ownerId');
+
+  const {
+    data: currentOwner,
+    // isPending: isPendingCurrentOwner,
+    isSuccess: isSuccessCurrentOwner,
+  } = useGetSpecificOwner({
+    ownerId,
+  });
+
+  const onSubmit = () => {
+    console.log('isSuccessCurrentOwner', isSuccessCurrentOwner);
+    console.log('currentOwner', currentOwner);
+
+    if (isSuccessCurrentOwner && currentOwner) {
+      setCurrentOwner(currentOwner);
+      router.push('/');
+    }
   };
 
-  if (isPending) {
+  if (isPendingAllOwners || isSubmitting) {
     return <LoadingSpinner asOverlay />;
   }
 
-  if (!data || error) {
+  if (!allOwners || error) {
     return (
       <section className="flex-center min-h-screen">
         <h2>{error ? error.message : 'You have to crate a new account on hubspot!'}</h2>
@@ -45,7 +68,7 @@ const Login = () => {
     );
   }
 
-  const selectOptions = data.results.map(({ id, email }) => ({ id, value: id, label: email }));
+  const selectOptions = allOwners.results.map(({ id, email }) => ({ id, value: id, label: email }));
 
   return (
     <section className="flex-center min-h-screen">
@@ -60,7 +83,7 @@ const Login = () => {
               placeholder="Select account"
             />
             <HubspotButton disabled={!isValid || isSubmitting} type="submit">
-              {isSubmitting ? '...processing' : 'Sign In'}
+              {isSubmitting ? '...Processing' : 'Sign In'}
             </HubspotButton>
           </form>
         </FormProvider>

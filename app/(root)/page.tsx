@@ -1,21 +1,21 @@
 'use client';
 
-import { getContacts } from '@/api/contacts';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { QueryKeys } from '@/lib/constants';
-import { useQuery } from '@tanstack/react-query';
+// import { getContacts } from '@/api/contacts';
+// import LoadingSpinner from '@/components/ui/LoadingSpinner';
+// import { QueryKeys } from '@/lib/constants';
+// import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
-  const { data: contactsData, isLoading: isLoadingCon } = useQuery({
-    queryKey: [QueryKeys.CONTACTS],
-    queryFn: () => getContacts({}),
-  });
+  // const { data: contactsData, isLoading: isLoadingCon } = useQuery({
+  //   queryKey: [QueryKeys.CONTACTS],
+  //   queryFn: () => getContacts({}),
+  // });
 
-  console.log('contactsData', contactsData);
+  // console.log('contactsData', contactsData);
 
-  if (isLoadingCon) {
-    return <LoadingSpinner asOverlay />;
-  }
+  // if (isLoadingCon) {
+  //   return <LoadingSpinner asOverlay />;
+  // }
 
   return <h1>This is init commit</h1>;
 };
