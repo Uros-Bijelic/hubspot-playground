@@ -9,56 +9,73 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuthContext } from '@/context/auth-context';
-import { LifeBuoy, LogOut, Plus, User } from 'lucide-react';
+import {
+  LayoutDashboardIcon,
+  LifeBuoyIcon,
+  LogOutIcon,
+  PlusIcon,
+  ScrollIcon,
+  SquareMenuIcon,
+  UserIcon,
+} from 'lucide-react';
 import Link from 'next/link';
-import LogoIcon from '../icons/Logo';
-import MenuIcon from '../icons/Menu';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------
 
 const Header = () => {
   const { logOutUser } = useAuthContext();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="flex-between h-14 bg-gray-200 px-2 sm:px-4">
+    <header className="flex-between h-14 bg-gray-200 px-2 shadow-md sm:px-4">
       <Link href="/">
-        <LogoIcon className="transition-colors hover:text-violet-500" />
+        <ScrollIcon width={34} height={34} className="transition-colors hover:text-violet-500" />
       </Link>
       <div>
-        <DropdownMenu>
+        <DropdownMenu onOpenChange={setIsOpen} open={isOpen}>
           <DropdownMenuTrigger asChild>
-            <MenuIcon className="cursor-pointer transition-colors hover:text-violet-500" />
+            <SquareMenuIcon className="cursor-pointer transition-colors hover:text-violet-500" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
+          <DropdownMenuContent className="w-56" onCloseAutoFocus={(e) => e.preventDefault()}>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setIsOpen(false)}>
                 <Link
                   href="/"
                   className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-4"
                 >
-                  <User />
+                  <LayoutDashboardIcon />
+                  <span>Home</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setIsOpen(false)}>
+                <Link
+                  href="/"
+                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-4"
+                >
+                  <UserIcon />
                   <span>Profile</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setIsOpen(false)}>
                 <Link
                   href="/contacts/create"
                   className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-4"
+                  onClick={() => setIsOpen(false)}
                 >
-                  <Plus />
+                  <PlusIcon />
                   <span>New Contact</span>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuItem className="px-2 py-1.5">
-              <LifeBuoy />
+              <LifeBuoyIcon />
               <span>Support</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="px-2 py-1.5" onClick={logOutUser}>
-              <LogOut />
+              <LogOutIcon />
               <span>Log out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>

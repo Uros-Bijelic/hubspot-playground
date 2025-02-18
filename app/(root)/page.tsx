@@ -1,23 +1,39 @@
 'use client';
 
-// import { getContacts } from '@/api/contacts';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { useGetContacts } from '@/lib/hooks/queries/use-get-contacts';
+import { useGetSpecificOwner } from '@/lib/hooks/queries/use-get-specific-owner';
+
 // import LoadingSpinner from '@/components/ui/LoadingSpinner';
-// import { QueryKeys } from '@/lib/constants';
-// import { useQuery } from '@tanstack/react-query';
+// import { useAuthContext } from '@/context/auth-context';
+// import { useGetContacts } from '@/lib/hooks/queries/use-get-contacts';
 
 const Home = () => {
-  // const { data: contactsData, isLoading: isLoadingCon } = useQuery({
-  //   queryKey: [QueryKeys.CONTACTS],
-  //   queryFn: () => getContacts({}),
-  // });
+  const { isLoading, data: contactsData, error: contactError } = useGetContacts();
+  const { data: owner } = useGetSpecificOwner({});
 
-  // console.log('contactsData', contactsData);
+  console.log('contactsData', contactsData);
+  console.log('error', contactError);
 
-  // if (isLoadingCon) {
-  //   return <LoadingSpinner asOverlay />;
-  // }
+  const ownerFullName = `${owner?.firstName} ${owner?.lastName}`;
 
-  return <h1>This is init commit</h1>;
+  if (isLoading) {
+    return <LoadingSpinner asOverlay />;
+  }
+
+  if (!owner) {
+    return <div className="h1-medium mx-auto my-5 text-center">User in not authenticated!</div>;
+  }
+
+  return (
+    <div className="flex flex-1 flex-col gap-4 p-4 sm:gap-8 sm:p-5">
+      <h2 className="d2-bold">Hello {ownerFullName}</h2>
+      <div className="flex">
+        <div className="border-2 border-red-500">LEFT</div>
+        <div className="border-2 border-green-500">RIGHT</div>
+      </div>
+    </div>
+  );
 };
 
 export default Home;

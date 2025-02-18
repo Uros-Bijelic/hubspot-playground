@@ -11,7 +11,7 @@ export const GET = async () => {
       console.log('Error fetching owners', error.message);
 
       // for now i till figure out error handling for hubspot
-      return NextResponse.json(error.message, { status: 500 });
+      return NextResponse.json(error.message);
     }
   }
 };
