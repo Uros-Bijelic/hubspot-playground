@@ -1,8 +1,7 @@
 import { axios } from '@/api';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function GET(req: NextRequest) {
+export const GET = async () => {
   try {
     const response = await axios.get(`owners`);
 
@@ -17,4 +16,4 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(error.message, { status: 500 });
     }
   }
-}
+};
