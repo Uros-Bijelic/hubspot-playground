@@ -1,20 +1,17 @@
-import Header from "@/components/layout/Header";
-import type { ReactNode } from "react";
+import Header from '@/components/layout/Header';
+import type { ReactNode } from 'react';
 
 // ----------------------------------------------------------------
 
 type LayoutProps = {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="flex">
-        <aside>Sidebar</aside>
-        <main>{children}</main>
-      </div>
+      <main className="mx-auto flex h-full w-[min(1280px,100%)] flex-1">{children}</main>
     </div>
   );
 };

@@ -5,7 +5,6 @@ export const getOwners = async () => {
     const response = await axios.get(`/api/owners/`);
     return response.data;
   } catch (error) {
-    console.log('Error getting owners', error);
     if (error instanceof Error) {
       console.log('Error getting owners', error.message);
 
@@ -24,7 +23,6 @@ export const getSpecificOwner = async ({ ownerId }: GetSpecificOwnerArgs) => {
     const response = await axios.get(`/api/owners/${ownerId}`);
     return response.data;
   } catch (error) {
-    console.log('Error getting specific owner', error);
     if (error instanceof Error) {
       console.log('Error getting specific owner', error.message);
 

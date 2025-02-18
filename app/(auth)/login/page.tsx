@@ -7,7 +7,7 @@ import HubspotButton from '@/components/ui/hubspot-button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { useRouter } from 'next/navigation';
 
-import RHFSelect from '@/components/ui/RHFInputs/rhf-select';
+import RHFSelect from '@/components/ui/rhf-inputs/rhf-select';
 import { useAuthContext } from '@/context/auth-context';
 import { useGetOwners } from '@/lib/hooks/queries/use-get-owners';
 import { useGetSpecificOwner } from '@/lib/hooks/queries/use-get-specific-owner';

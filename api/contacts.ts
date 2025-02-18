@@ -1,11 +1,6 @@
 import { axios } from './axios.config';
 
-type GetContactsArgs = {
-  limit?: number;
-  archived?: boolean;
-};
-
-export const getContacts = async ({ limit = 30, archived = false }: GetContactsArgs) => {
+export const getContacts = async (limit = 10, archived = false) => {
   try {
     const response = await axios.get(`/api/contacts`, {
       params: {

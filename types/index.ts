@@ -1,4 +1,4 @@
-export interface IContactsDTO {
+export type Contact = {
   id: string;
   properties: {
     createdate: string;
@@ -11,7 +11,7 @@ export interface IContactsDTO {
   createdAt: string;
   updatedAt: string;
   archived: false;
-}
+};
 
 export type Owner = {
   archived: boolean;

@@ -1,23 +1,25 @@
 'use client';
 
-// import { getContacts } from '@/api/contacts';
-// import LoadingSpinner from '@/components/ui/LoadingSpinner';
-// import { QueryKeys } from '@/lib/constants';
-// import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { useAuthContext } from '@/context/auth-context';
+import { useGetContacts } from '@/lib/hooks/queries/use-get-contacts';
 
 const Home = () => {
-  // const { data: contactsData, isLoading: isLoadingCon } = useQuery({
-  //   queryKey: [QueryKeys.CONTACTS],
-  //   queryFn: () => getContacts({}),
-  // });
+  const { isLoading } = useGetContacts();
+  const { owner } = useAuthContext();
 
-  // console.log('contactsData', contactsData);
+  const ownerFullName = `${owner?.firstName} ${owner?.lastName}`;
 
-  // if (isLoadingCon) {
-  //   return <LoadingSpinner asOverlay />;
-  // }
+  if (isLoading) {
+    return <LoadingSpinner asOverlay />;
+  }
 
-  return <h1>This is init commit</h1>;
+  return (
+    <div className="w-full border border-red-500">
+      <h2 className="d2-bold">Welcome {ownerFullName}</h2>
+      <div className=""></div>
+    </div>
+  );
 };
 
 export default Home;

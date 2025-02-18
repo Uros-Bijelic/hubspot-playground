@@ -1,5 +1,5 @@
 import AuthContextProvider from '@/context/auth-context';
-import QueryClientProvider from '@/context/TanstackQuery';
+import QueryClientProvider from '@/context/tanstack-query';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
