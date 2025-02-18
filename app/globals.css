@@ -79,6 +79,13 @@ sbody {
   }
 
   /* FLEX  */
+
+  /* MISC  */
+  .dropdown-menu-item {
+    @apply flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-6;
+  }
+
+  /* MISC  */
 }
 
 @layer base {

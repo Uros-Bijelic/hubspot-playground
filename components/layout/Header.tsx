@@ -43,7 +43,7 @@ const Header = () => {
               <DropdownMenuItem onClick={() => setIsOpen(false)}>
                 <Link
                   href="/"
-                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-4"
+                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-6"
                 >
                   <LayoutDashboardIcon />
                   <span>Home</span>
@@ -52,7 +52,7 @@ const Header = () => {
               <DropdownMenuItem onClick={() => setIsOpen(false)}>
                 <Link
                   href="/"
-                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-4"
+                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-6"
                 >
                   <UserIcon />
                   <span>Profile</span>
@@ -61,7 +61,7 @@ const Header = () => {
               <DropdownMenuItem onClick={() => setIsOpen(false)}>
                 <Link
                   href="/contacts/create"
-                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-4"
+                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-6"
                   onClick={() => setIsOpen(false)}
                 >
                   <PlusIcon />
@@ -69,12 +69,12 @@ const Header = () => {
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuItem className="px-2 py-1.5">
+            <DropdownMenuItem className="px-2 py-1.5 [&>svg]:size-6">
               <LifeBuoyIcon />
               <span>Support</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="px-2 py-1.5" onClick={logOutUser}>
+            <DropdownMenuItem className="px-2 py-1.5 [&>svg]:size-6" onClick={logOutUser}>
               <LogOutIcon />
               <span>Log out</span>
             </DropdownMenuItem>

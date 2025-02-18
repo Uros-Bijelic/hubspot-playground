@@ -1,4 +1,12 @@
-import { EllipsisVerticalIcon, UserIcon } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { EllipsisVerticalIcon, Trash2Icon, UserIcon } from 'lucide-react';
+import Link from 'next/link';
 
 type Props = {
   id: string;
@@ -21,7 +29,25 @@ const ContactCard = ({ id, firstName, lastName, email }: Props) => {
           <p>{email}</p>
         </div>
         <div>
-          <EllipsisVerticalIcon className="cursor-pointer" />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <EllipsisVerticalIcon className="cursor-pointer" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Link href={`/contacts/${id}`} className="dropdown-menu-item">
+                    <UserIcon />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="dropdown-menu-item [&>svg]:size-6">
+                  <Trash2Icon />
+                  <span>Delete</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </div>
