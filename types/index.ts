@@ -13,7 +13,7 @@ export interface IContactsDTO {
   archived: false;
 }
 
-export interface IOwnerDTO {
+export type Owner = {
   archived: boolean;
   createdAt: string;
   email: string;
@@ -24,4 +24,4 @@ export interface IOwnerDTO {
   updatedAt: string;
   userId: number;
   userIdIncludingInactive: number;
-}
+};

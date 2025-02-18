@@ -6,9 +6,12 @@ type Props = {
   isLoading?: boolean;
 } & ButtonProps;
 
-const HubspotButton = ({ children, isLoading, className }: Props) => {
+const HubspotButton = ({ children, isLoading, className, ...rest }: Props) => {
   return (
-    <Button className={cn('bg-violet-500 hover:bg-violet-400', className)}>
+    <Button
+      className={cn('bg-violet-500 hover:bg-violet-400 disabled:bg-primary', className)}
+      {...rest}
+    >
       {isLoading && <LoaderPinwheelIcon className="animate-spin" />} {children}
     </Button>
   );
