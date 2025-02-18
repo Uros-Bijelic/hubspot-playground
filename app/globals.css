@@ -2,89 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-
-body {
+sbody {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
   /* TYPOGRAPHY  */
   .d1-bold {
-    @apply max-md:text-[27px] text-[31px] md:leading-[40px] font-bold text-black-800 dark:text-white-100;
+    @apply text-[31px] font-bold max-md:text-[27px] md:leading-[40px];
   }
   .d2-bold {
-    @apply text-2xl font-bold text-black-800 dark:text-white-100;
+    @apply text-2xl font-bold;
   }
   .h1-medium {
-    @apply text-[20px] leading-[28px] font-medium text-black-800 dark:text-white-200;
+    @apply text-[20px] font-medium leading-[28px];
   }
   .h2-medium {
-    @apply text-base font-medium text-black-800 dark:text-white-200;
+    @apply text-base font-medium;
   }
   .p1-bold {
-    @apply text-[18px] leading-[21.6px] font-bold text-black-800 dark:text-white-200; /* DOBRO */
+    @apply text-[18px] font-bold leading-[21.6px];
   }
   .p2-bold {
-    @apply text-base font-bold dark:text-white-200 text-black-800; /* DOBRO */
+    @apply text-base font-bold;
   }
   .p3-bold {
-    @apply text-[14px] leading-[24px] font-bold text-black-800 dark:text-white-100; /* DOBRO */
+    @apply text-[14px] font-bold leading-[24px];
   }
   .p4-bold {
-    @apply text-xs font-bold text-black-700 dark:text-white-400;
+    @apply text-xs font-bold;
   }
   .p1-medium {
-    @apply text-[14px] md:!text-[18px] leading-[20px] font-medium text-white-400 dark:text-white-300; /* DOBRO */
+    @apply text-[14px] font-medium leading-[20px] md:!text-[18px];
   }
   .p2-medium {
-    @apply text-base font-medium text-black-800 dark:text-white-200; /* DOBRO */
+    @apply text-base font-medium;
   }
   .p3-medium {
-    @apply text-sm font-medium text-black-800 dark:text-white-200; /* DOBRO */
+    @apply text-sm font-medium;
   }
   .p4-medium {
-    @apply text-[10px] md:text-xs font-medium text-black-800 dark:text-white-200; /* DOBRO */
+    @apply text-[10px] font-medium md:text-xs;
   }
   .p1-regular {
-    @apply text-[18px] leading-[20px] font-normal text-black-800 dark:text-white-100;
+    @apply text-[18px] font-normal leading-[20px];
   }
   .p2-regular {
-    @apply text-base font-normal text-white-400 dark:text-white-300;
+    @apply text-base font-normal;
   }
   .p3-regular {
-    @apply text-sm font-normal text-white-400 dark:text-white-200; /* DOBRO*/
+    @apply text-sm font-normal;
   }
   .p4-regular {
-    @apply text-xs font-normal text-white-400 dark:text-white-200; /* DOBRO*/
+    @apply text-xs font-normal;
   }
   .subtitle-normal {
-    @apply text-[10px] leading-[14px] font-normal text-white-400;
+    @apply text-[10px] font-normal leading-[14px];
   }
   .subtitle-medium {
-    @apply text-[10px] leading-[14px] font-normal text-white-400;
+    @apply text-[10px] font-normal leading-[14px];
   }
   .cap-10 {
-    @apply text-[10px] leading-[13px] font-medium text-white-400;
+    @apply text-[10px] font-medium leading-[13px];
   }
   .cap-8 {
-    @apply text-[8px] leading-[10.4px] font-medium text-white-400;
+    @apply text-[8px] font-medium leading-[10.4px];
   }
   /* TYPOGRAPHY  */
 
   /* FLEX  */
   .flex-between {
     @apply flex items-center justify-between;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
   }
 
   /* FLEX  */
