@@ -1,7 +1,4 @@
-import Link from "next/link";
-import LogoIcon from "../icons/Logo";
-
-import { LifeBuoy, LogOut, Plus, User } from "lucide-react";
+'use client';
 
 import {
   DropdownMenu,
@@ -10,21 +7,27 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import MenuIcon from "../icons/Menu";
+} from '@/components/ui/dropdown-menu';
+import { useAuthContext } from '@/context/auth-context';
+import { LifeBuoy, LogOut, Plus, User } from 'lucide-react';
+import Link from 'next/link';
+import LogoIcon from '../icons/Logo';
+import MenuIcon from '../icons/Menu';
 
 // ----------------------------------------------------------------
 
 const Header = () => {
+  const { logOutUser } = useAuthContext();
+
   return (
-    <header className="bg-gray-200 px-2 sm:px-4 h-14 flex-between">
+    <header className="flex-between h-14 bg-gray-200 px-2 sm:px-4">
       <Link href="/">
-        <LogoIcon className="hover:text-violet-500 transition-colors" />
+        <LogoIcon className="transition-colors hover:text-violet-500" />
       </Link>
       <div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <MenuIcon className="cursor-pointer hover:text-violet-500 transition-colors" />
+            <MenuIcon className="cursor-pointer transition-colors hover:text-violet-500" />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
@@ -33,7 +36,7 @@ const Header = () => {
               <DropdownMenuItem>
                 <Link
                   href="/"
-                  className="flex items-center gap-2 [&>svg]:size-4 w-full px-2 py-1.5"
+                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-4"
                 >
                   <User />
                   <span>Profile</span>
@@ -42,7 +45,7 @@ const Header = () => {
               <DropdownMenuItem>
                 <Link
                   href="/contacts/create"
-                  className="flex items-center gap-2 [&>svg]:size-4 w-full px-2 py-1.5"
+                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-4"
                 >
                   <Plus />
                   <span>New Contact</span>
@@ -54,7 +57,7 @@ const Header = () => {
               <span>Support</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="px-2 py-1.5">
+            <DropdownMenuItem className="px-2 py-1.5" onClick={logOutUser}>
               <LogOut />
               <span>Log out</span>
             </DropdownMenuItem>

@@ -38,18 +38,11 @@ const Login = () => {
 
   const ownerId = getValues('ownerId');
 
-  const {
-    data: currentOwner,
-    // isPending: isPendingCurrentOwner,
-    isSuccess: isSuccessCurrentOwner,
-  } = useGetSpecificOwner({
+  const { data: currentOwner, isSuccess: isSuccessCurrentOwner } = useGetSpecificOwner({
     ownerId,
   });
 
   const onSubmit = () => {
-    console.log('isSuccessCurrentOwner', isSuccessCurrentOwner);
-    console.log('currentOwner', currentOwner);
-
     if (isSuccessCurrentOwner && currentOwner) {
       setCurrentOwner(currentOwner);
       router.push('/');

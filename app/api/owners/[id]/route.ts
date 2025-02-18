@@ -6,7 +6,6 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: 
 
   try {
     const response = await axios.get(`/owners/${id}`);
-    console.log('response', response.data);
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {
