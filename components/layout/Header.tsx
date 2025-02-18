@@ -41,19 +41,13 @@ const Header = () => {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={() => setIsOpen(false)}>
-                <Link
-                  href="/"
-                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-6"
-                >
+                <Link href="/" className="dropdown-menu-item">
                   <LayoutDashboardIcon />
                   <span>Home</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setIsOpen(false)}>
-                <Link
-                  href="/"
-                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-6"
-                >
+                <Link href="/" className="dropdown-menu-item">
                   <UserIcon />
                   <span>Profile</span>
                 </Link>
@@ -61,7 +55,7 @@ const Header = () => {
               <DropdownMenuItem onClick={() => setIsOpen(false)}>
                 <Link
                   href="/contacts/create"
-                  className="flex w-full items-center gap-2 px-2 py-1.5 [&>svg]:size-6"
+                  className="dropdown-menu-item"
                   onClick={() => setIsOpen(false)}
                 >
                   <PlusIcon />
@@ -69,12 +63,12 @@ const Header = () => {
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuItem className="px-2 py-1.5 [&>svg]:size-6">
+            <DropdownMenuItem className="dropdown-menu-item [&>svg]:size-6">
               <LifeBuoyIcon />
               <span>Support</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="px-2 py-1.5 [&>svg]:size-6" onClick={logOutUser}>
+            <DropdownMenuItem className="dropdown-menu-item [&>svg]:size-6" onClick={logOutUser}>
               <LogOutIcon />
               <span>Log out</span>
             </DropdownMenuItem>

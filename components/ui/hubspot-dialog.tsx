@@ -28,7 +28,7 @@ const HubSpotDialog = ({ isOpen, onOpen, content, triggerIcon, title }: Props) =
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
-        {/** ! This DialogDiscription component is here to avoid Shadcn/Radix warning since it is required component  */}
+        {/** ! This DialogDiscription component is here to avoid Shadcn/Radix error since it is required component (figure out solution?)  */}
         <DialogDescription className="hidden" />
 
         <div>{content}</div>
