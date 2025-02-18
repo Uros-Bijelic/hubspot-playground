@@ -1,5 +1,6 @@
 'use client';
 
+import ContactCard from '@/components/features/contacts/contact-card';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { useGetContacts } from '@/lib/hooks/queries/use-get-contacts';
 import { useGetSpecificOwner } from '@/lib/hooks/queries/use-get-specific-owner';
@@ -9,11 +10,10 @@ import { useGetSpecificOwner } from '@/lib/hooks/queries/use-get-specific-owner'
 // import { useGetContacts } from '@/lib/hooks/queries/use-get-contacts';
 
 const Home = () => {
-  const { isLoading, data: contactsData, error: contactError } = useGetContacts();
+  const { isLoading, data: contactsData } = useGetContacts();
   const { data: owner } = useGetSpecificOwner({});
 
   console.log('contactsData', contactsData);
-  console.log('error', contactError);
 
   const ownerFullName = `${owner?.firstName} ${owner?.lastName}`;
 
@@ -28,9 +28,19 @@ const Home = () => {
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 sm:gap-8 sm:p-5">
       <h2 className="d2-bold">Hello {ownerFullName}</h2>
-      <div className="flex">
-        <div className="border-2 border-red-500">LEFT</div>
-        <div className="border-2 border-green-500">RIGHT</div>
+      <div className="flex flex-col md:flex-row">
+        <div className="flex-1 border-2 border-green-400">RIGHT</div>
+        <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-1">
+          {contactsData?.results.map(({ id, properties }) => (
+            <ContactCard
+              key={id}
+              id={id}
+              firstName={properties.firstname}
+              lastName={properties.lastname}
+              email={properties.email}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
