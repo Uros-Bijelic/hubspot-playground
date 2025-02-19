@@ -14,7 +14,6 @@ type UseGetContactsResponse = {
 };
 
 export const useGetContacts = (page = 1, urlToFetch = '', limit = 8) => {
-  console.log('useGetContacts');
   return useQuery<UseGetContactsResponse>({
     queryKey: [QUERY_KEYS.CONTACTS, page],
     queryFn: () => getContacts(limit, urlToFetch),

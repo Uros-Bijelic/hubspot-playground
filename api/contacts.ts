@@ -22,9 +22,9 @@ export const getContacts = async (limit = 8, urlToFetch = '', archived = false) 
 
 export const deleteContact = async (id: string) => {
   try {
-    const response = await axios.delete(`/api/contact/${id}`);
+    const response = await axios.delete(`/api/contacts/${id}`);
 
-    console.log('response u delete contact function', response);
+    return response.data;
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error deleting contact', error.message);

@@ -14,6 +14,7 @@ import { generateInitials } from '@/lib/utils';
 import { EllipsisVerticalIcon, Trash2Icon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 type Props = {
   id: string;
@@ -26,14 +27,26 @@ const ContactCard = ({ id, firstName, lastName, email }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const {} = useDeleteContact();
+  const { mutateAsync: deleteContactAsync } = useDeleteContact();
 
   const toggleDialog = (open: boolean) => {
     setIsDialogOpen(open);
   };
 
-  const deleteContact = () => {
-    console.log('delete contact');
+  const deleteContact = async () => {
+    try {
+      await deleteContactAsync(id, {
+        onSuccess() {
+          toast.success('Contact was successfully deleted');
+          setIsDialogOpen(false);
+        },
+        onError(error) {
+          toast.error(error.message || 'Something went wrong!');
+        },
+      });
+    } catch (error) {
+      console.log('Error deleting contact', error);
+    }
   };
 
   const cancelDeletingContact = () => {
@@ -58,7 +71,7 @@ const ContactCard = ({ id, firstName, lastName, email }: Props) => {
             <DropdownMenuTrigger asChild>
               <EllipsisVerticalIcon className="cursor-pointer" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" onCloseAutoFocus={(e) => e.preventDefault()}>
               <DropdownMenuGroup>
                 <DropdownMenuItem>
                   <Link href={`/contacts/${id}`} className="dropdown-menu-item">
