@@ -43,9 +43,11 @@ const Login = () => {
   });
 
   const onSubmit = () => {
+    console.log('isSuccessCurrentOwner', isSuccessCurrentOwner);
+    console.log('currentOwner', currentOwner);
     if (isSuccessCurrentOwner && currentOwner) {
       setCurrentOwner(currentOwner);
-      localStorage.setItem('currentUserId', currentOwner.id);
+      localStorage.setItem('ownerId', currentOwner.id);
       router.push('/');
     }
   };

@@ -21,8 +21,14 @@ type Props = {
 };
 
 export const generateInitials = (firstName = '', lastName = '') => {
-  if (firstName === '' && lastName === '') {
+  if (!firstName || (firstName === '' && !lastName) || lastName === '') {
     return 'N/A';
+  }
+
+  if (!lastName || (lastName === '' && firstName && firstName !== '')) {
+    return firstName.charAt(0).toUpperCase();
+  } else if (!firstName || (firstName === '' && lastName && lastName !== '')) {
+    return lastName.charAt(0).toUpperCase();
   }
 
   return `${firstName.charAt(0)}${lastName.charAt(0)}`;
@@ -53,7 +59,7 @@ const ContactCard = ({ id, firstName, lastName, email }: Props) => {
       <div className="flex items-center justify-between gap-2">
         <div className="flex flex-1 flex-col text-center">
           <p>
-            {firstName} {lastName}
+            {firstName && firstName} {lastName && lastName}
           </p>
           <p>{email}</p>
         </div>

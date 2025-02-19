@@ -5,15 +5,18 @@ import { useQuery } from '@tanstack/react-query';
 
 type UseGetContactsResponse = {
   paging?: {
-    after: string;
-    link: string;
+    next: {
+      after: string;
+      link: string;
+    };
   };
   results: Contact[];
 };
 
-export const useGetContacts = (limit: number = 10) => {
+export const useGetContacts = (page = 1, urlToFetch = '', limit = 8) => {
+  console.log('useGetContacts');
   return useQuery<UseGetContactsResponse>({
-    queryKey: [QUERY_KEYS.CONTACTS],
-    queryFn: () => getContacts(limit),
+    queryKey: [QUERY_KEYS.CONTACTS, page],
+    queryFn: () => getContacts(limit, urlToFetch),
   });
 };

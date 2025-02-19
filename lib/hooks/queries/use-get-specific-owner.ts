@@ -9,7 +9,7 @@ type UseGetSpecificOwnersArgs = {
 };
 
 export const useGetSpecificOwner = ({ ownerId }: UseGetSpecificOwnersArgs) => {
-  const userId = localStorage.getItem('currentUser') || ownerId || '';
+  const userId = localStorage.getItem('currentUser') || ownerId || '77311621';
 
   return useQuery<Owner>({
     queryKey: [QUERY_KEYS.OWNER, userId],
