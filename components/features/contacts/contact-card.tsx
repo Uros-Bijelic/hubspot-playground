@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import HubspotButton from '@/components/ui/hubspot-button';
 import HubSpotDialog from '@/components/ui/hubspot-dialog';
+import { generateInitials } from '@/lib/utils';
 import { EllipsisVerticalIcon, Trash2Icon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -18,20 +19,6 @@ type Props = {
   firstName: string;
   lastName: string;
   email: string;
-};
-
-export const generateInitials = (firstName = '', lastName = '') => {
-  if (!firstName || (firstName === '' && !lastName) || lastName === '') {
-    return 'N/A';
-  }
-
-  if (!lastName || (lastName === '' && firstName && firstName !== '')) {
-    return firstName.charAt(0).toUpperCase();
-  } else if (!firstName || (firstName === '' && lastName && lastName !== '')) {
-    return lastName.charAt(0).toUpperCase();
-  }
-
-  return `${firstName.charAt(0)}${lastName.charAt(0)}`;
 };
 
 const ContactCard = ({ id, firstName, lastName, email }: Props) => {
@@ -53,7 +40,7 @@ const ContactCard = ({ id, firstName, lastName, email }: Props) => {
 
   return (
     <div key={id} className="flex flex-col gap-2 p-2 shadow-md sm:p-4">
-      <div className="flex-0 mx-auto w-min shrink-0 rounded-full bg-gray-200 p-2 text-violet-500">
+      <div className="flex-center mx-auto size-10 rounded-full bg-gray-200 text-violet-500">
         {generateInitials(firstName, lastName)}
       </div>
       <div className="flex items-center justify-between gap-2">
