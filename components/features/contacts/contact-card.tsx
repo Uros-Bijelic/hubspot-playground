@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import HubspotButton from '@/components/ui/hubspot-button';
 import HubSpotDialog from '@/components/ui/hubspot-dialog';
+import { useDeleteContact } from '@/lib/hooks/mutations/use-delete-contact';
 import { generateInitials } from '@/lib/utils';
 import { EllipsisVerticalIcon, Trash2Icon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -24,6 +25,8 @@ type Props = {
 const ContactCard = ({ id, firstName, lastName, email }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const {} = useDeleteContact();
 
   const toggleDialog = (open: boolean) => {
     setIsDialogOpen(open);
