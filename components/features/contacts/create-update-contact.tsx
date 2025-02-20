@@ -1,6 +1,14 @@
+'use client';
+
+import type { Company, Owner } from '@/types';
 import CreateUpdateContactForm from './create-update-contact-form';
 
-const CreateUpdateContact = () => {
+type Props = {
+  companies: Company[];
+  owners: Owner[];
+};
+
+const CreateUpdateContact = ({}: Props) => {
   const handleSubmit = () => {};
 
   return <CreateUpdateContactForm onSubmitData={handleSubmit} />;

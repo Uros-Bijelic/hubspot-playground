@@ -25,3 +25,17 @@ export type Owner = {
   userId: number;
   userIdIncludingInactive: number;
 };
+
+export type Company = {
+  id: string;
+  properties: {
+    createdate: string;
+    domain: string;
+    hs_lastmodifieddate: string;
+    hs_object_id: string;
+    name: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+  archived: boolean;
+};
