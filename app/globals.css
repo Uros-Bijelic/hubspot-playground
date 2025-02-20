@@ -23,35 +23,35 @@ sbody {
   .p1-bold {
     @apply text-[18px] font-bold leading-[21.6px];
   }
-  .p2-bold {
-    @apply text-base font-bold;
-  }
-  .p3-bold {
-    @apply text-[14px] font-bold leading-[24px];
-  }
-  .p4-bold {
-    @apply text-xs font-bold;
-  }
   .p1-medium {
     @apply text-[14px] font-medium leading-[20px] md:!text-[18px];
-  }
-  .p2-medium {
-    @apply text-base font-medium;
-  }
-  .p3-medium {
-    @apply text-sm font-medium;
-  }
-  .p4-medium {
-    @apply text-[10px] font-medium md:text-xs;
   }
   .p1-regular {
     @apply text-[18px] font-normal leading-[20px];
   }
+  .p2-bold {
+    @apply text-base font-bold;
+  }
+  .p2-medium {
+    @apply text-base font-medium;
+  }
   .p2-regular {
     @apply text-base font-normal;
   }
+  .p3-bold {
+    @apply text-[14px] font-bold leading-[24px];
+  }
+  .p3-medium {
+    @apply text-sm font-medium;
+  }
   .p3-regular {
     @apply text-sm font-normal;
+  }
+  .p4-bold {
+    @apply text-xs font-bold;
+  }
+  .p4-medium {
+    @apply text-[10px] font-medium md:text-xs;
   }
   .p4-regular {
     @apply text-xs font-normal;

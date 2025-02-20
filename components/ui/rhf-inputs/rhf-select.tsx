@@ -20,7 +20,7 @@ import { useFormContext } from 'react-hook-form';
 
 type RHFSelectProps = {
   name: string;
-  label: string;
+  label?: string;
   placeholder?: string;
   options: {
     id: string;

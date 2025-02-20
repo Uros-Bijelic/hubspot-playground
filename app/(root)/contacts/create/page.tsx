@@ -1,5 +1,7 @@
+import CreateUpdateContactForm from '@/components/features/contacts/create-update-contact-form';
+
 const CreateContact = () => {
-  return <div>CreateContact</div>;
+  return <CreateUpdateContactForm />;
 };
 
 export default CreateContact;
