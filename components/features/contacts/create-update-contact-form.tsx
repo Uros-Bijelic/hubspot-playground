@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const baseUserSchema = z.object({
+export const baseUserSchema = z.object({
   firstName: z.string().trim().min(1, 'First name is required'),
   lastName: z.string().trim().min(1, 'Last name is required'),
   email: z.string().trim().email('Please provide valid email').min(1, 'Email is required'),
@@ -19,7 +19,7 @@ const baseUserSchema = z.object({
   contactOwner: z.string().trim().optional(),
 });
 
-type BaseUserSchema = z.infer<typeof baseUserSchema>;
+export type BaseUserSchema = z.infer<typeof baseUserSchema>;
 
 type Props = {
   defaultData?: BaseUserSchema;
@@ -61,14 +61,14 @@ const CreateUpdateContactForm = ({ defaultData, onSubmitData }: Props) => {
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col sm:gap-4">
           <div className="flex flex-col gap-4 sm:flex-row">
-            <div className="flex w-[min(400px,100%)] flex-col gap-2">
-              <p className="p1-bold">Required</p>
+            <div className="flex w-[min(400px,100%)] flex-col gap-2 sm:gap-4">
+              <p className="p1-bold text-violet-500">Required</p>
               <RHFInput label="First name" placeholder="First name" name="firstName" />
               <RHFInput label="Last name" placeholder="Last name" name="lastName" />
               <RHFInput label="Email" placeholder="Email" name="email" />
             </div>
             <div className="flex w-[min(400px,100%)] flex-col gap-2 sm:gap-4">
-              <p className="p1-bold">Optional</p>
+              <p className="p1-bold text-violet-500">Optional</p>
               <RHFInput label="Job Title" placeholder="Job Title" name="jobTitle" />
               <RHFInput label="Phone number" placeholder="Phone number" name="phone" />
               <RHFInput label="Country" placeholder="Country" name="country" />

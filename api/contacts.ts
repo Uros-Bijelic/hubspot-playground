@@ -1,3 +1,4 @@
+import { BaseUserSchema } from '@/components/features/contacts/create-update-contact-form';
 import { axios } from './axios.config';
 
 export const getContacts = async (limit = 8, urlToFetch = '', archived = false) => {
@@ -25,6 +26,19 @@ export const deleteContact = async (id: string) => {
     const response = await axios.delete(`/api/contacts/${id}`);
 
     return response.data;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log('Error deleting contact', error.message);
+    }
+  }
+};
+
+export const createContact = async (data: BaseUserSchema) => {
+  try {
+    const response = await axios.post('/api/contacts', {
+      data,
+    });
+    console.log('response u creteContact function', response);
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error deleting contact', error.message);

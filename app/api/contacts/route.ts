@@ -23,3 +23,27 @@ export async function GET(req: NextRequest) {
     }
   }
 }
+
+export const POST = async (req: NextRequest) => {
+  const API_KEY = process.env.HUBSPOT_API_KEY || '';
+
+  try {
+    const body = await req.json();
+    console.log(
+      'BBBBBBBBBBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOODDDDDDDDDDDDDDDDDDDDDDDDDDDYYYYYYYYYYYYYYYY',
+      body,
+    );
+
+    const response = await axios.post('/contacts', {
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    });
+
+    console.log('response', response);
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ message: error.message });
+    }
+  }
+};
