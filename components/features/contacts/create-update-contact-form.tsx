@@ -57,18 +57,23 @@ const CreateUpdateContactForm = ({ defaultData }: Props) => {
           <div className="flex flex-col gap-4 sm:flex-row">
             <div className="flex w-[min(400px,100%)] flex-col gap-2">
               <p className="p1-bold">Required</p>
-              <RHFInput label="First name" name="firstName" />
-              <RHFInput label="Last name" name="lastName" />
-              <RHFInput label="Email" name="email" />
+              <RHFInput label="First name" placeholder="First name" name="firstName" />
+              <RHFInput label="Last name" placeholder="Last name" name="lastName" />
+              <RHFInput label="Email" placeholder="Email" name="email" />
             </div>
             <div className="flex w-[min(400px,100%)] flex-col gap-2 sm:gap-4">
               <p className="p1-bold">Optional</p>
-              <RHFInput label="Job Title" name="jobTitle" />
-              <RHFInput label="Phone number" name="phone" />
-              <RHFInput label="Country" name="country" />
-              <RHFInput label="City" name="city" />
-              <RHFSelect label="Company" name="company" options={[]} />
-              <RHFSelect label="Contact Owner" name="contactOwner" options={[]} />
+              <RHFInput label="Job Title" placeholder="Job Title" name="jobTitle" />
+              <RHFInput label="Phone number" placeholder="Phone number" name="phone" />
+              <RHFInput label="Country" placeholder="Country" name="country" />
+              <RHFInput label="City" placeholder="City" name="city" />
+              <RHFSelect label="Company" placeholder="Company" name="company" options={[]} />
+              <RHFSelect
+                label="Contact Owner"
+                placeholder="Contact Owner"
+                name="contactOwner"
+                options={[]}
+              />
             </div>
           </div>
           <HubspotButton className="mt-4 flex" type="submit">
