@@ -23,6 +23,7 @@ type BaseUserSchema = z.infer<typeof baseUserSchema>;
 
 type Props = {
   defaultData?: BaseUserSchema;
+  onSubmitData: (data: BaseUserSchema) => void;
 };
 
 const defaultValues = {
@@ -37,7 +38,7 @@ const defaultValues = {
   contactOwner: '',
 };
 
-const CreateUpdateContactForm = ({ defaultData }: Props) => {
+const CreateUpdateContactForm = ({ defaultData, onSubmitData }: Props) => {
   const methods = useForm<BaseUserSchema>({
     resolver: zodResolver(baseUserSchema),
     defaultValues: defaultData || defaultValues,
@@ -47,6 +48,11 @@ const CreateUpdateContactForm = ({ defaultData }: Props) => {
 
   const onSubmit = (data: BaseUserSchema) => {
     console.log('data', data);
+    try {
+      onSubmitData(data);
+    } catch (error) {
+      console.log('Error create update contact', error);
+    }
   };
 
   return (

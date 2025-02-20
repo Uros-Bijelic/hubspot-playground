@@ -1,7 +1,8 @@
-import CreateUpdateContactForm from '@/components/features/contacts/create-update-contact-form';
+import CreateUpdateContact from '@/components/features/contacts/create-update-contact';
+// import CreateUpdateContactForm from '@/components/features/contacts/create-update-contact-form';
 
-const CreateContact = () => {
-  return <CreateUpdateContactForm />;
+const CreateContact = async () => {
+  return <CreateUpdateContact />;
 };
 
 export default CreateContact;
