@@ -7,6 +7,11 @@ export type Contact = {
     hs_object_id: string;
     lastmodifieddate: string;
     lastname: string;
+    country?: string;
+    city?: string;
+    phone?: string;
+    company?: string;
+    jobtitle?: string;
   };
   createdAt: string;
   updatedAt: string;
@@ -24,4 +29,18 @@ export type Owner = {
   updatedAt: string;
   userId: number;
   userIdIncludingInactive: number;
+};
+
+export type Company = {
+  id: string;
+  properties: {
+    createdate: string;
+    domain: string;
+    hs_lastmodifieddate: string;
+    hs_object_id: string;
+    name: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+  archived: boolean;
 };

@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import AuthContextProvider from '@/context/auth-context';
 import QueryClientProvider from '@/context/tanstack-query';
 import type { Metadata } from 'next';
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthContextProvider>
+          <Toaster />
           <QueryClientProvider>{children}</QueryClientProvider>
         </AuthContextProvider>
       </body>

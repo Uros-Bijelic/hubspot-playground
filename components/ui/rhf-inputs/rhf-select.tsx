@@ -20,12 +20,13 @@ import { useFormContext } from 'react-hook-form';
 
 type RHFSelectProps = {
   name: string;
-  label: string;
+  label?: string;
   placeholder?: string;
   options: {
     id: string;
     value: string;
     label: string;
+    disabled: boolean;
   }[];
   description?: string;
 } & SelectProps;
@@ -47,11 +48,12 @@ const RHFSelect = ({ label, options, placeholder, name, description }: RHFSelect
               </SelectTrigger>
             </FormControl>
             <SelectContent onCloseAutoFocus={(e) => e.preventDefault()}>
-              {options?.map(({ id, value, label }) => (
+              {options?.map(({ id, value, label, disabled = false }) => (
                 <SelectItem
                   key={id}
                   value={value}
-                  className="data-[highlighted]:hover:bg-violet-300"
+                  className="cursor-pointer data-[highlighted]:hover:bg-violet-300"
+                  disabled={disabled}
                 >
                   {label}
                 </SelectItem>

@@ -20,7 +20,7 @@ const Home = () => {
     isPending: isPendingContacts,
     refetch,
   } = useGetContacts(page, urlToFetch);
-  const { data: owner, isPending: isPendingOwner } = useGetSpecificOwner({});
+  const { data: owner, isPending: isPendingOwner } = useGetSpecificOwner();
 
   const ownerFullName = `${owner?.firstName} ${owner?.lastName}`;
 
@@ -55,7 +55,7 @@ const Home = () => {
     return <div className="h1-medium mx-auto my-5 text-center">User in not authenticated!</div>;
   }
 
-  console.log('owner', owner);
+  console.log('contactsData', contactsData);
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 sm:gap-4 sm:p-5">

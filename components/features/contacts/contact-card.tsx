@@ -9,10 +9,12 @@ import {
 } from '@/components/ui/dropdown-menu';
 import HubspotButton from '@/components/ui/hubspot-button';
 import HubSpotDialog from '@/components/ui/hubspot-dialog';
+import { useDeleteContact } from '@/lib/hooks/mutations/use-delete-contact';
 import { generateInitials } from '@/lib/utils';
-import { EllipsisVerticalIcon, Trash2Icon, UserIcon } from 'lucide-react';
+import { EllipsisVerticalIcon, PencilIcon, Trash2Icon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 type Props = {
   id: string;
@@ -25,12 +27,26 @@ const ContactCard = ({ id, firstName, lastName, email }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const { mutateAsync: deleteContactAsync } = useDeleteContact();
+
   const toggleDialog = (open: boolean) => {
     setIsDialogOpen(open);
   };
 
-  const deleteContact = () => {
-    console.log('delete contact');
+  const deleteContact = async () => {
+    try {
+      await deleteContactAsync(id, {
+        onSuccess() {
+          toast.success('Contact was successfully deleted');
+          setIsDialogOpen(false);
+        },
+        onError(error) {
+          toast.error(error.message || 'Something went wrong!');
+        },
+      });
+    } catch (error) {
+      console.log('Error deleting contact', error);
+    }
   };
 
   const cancelDeletingContact = () => {
@@ -55,12 +71,18 @@ const ContactCard = ({ id, firstName, lastName, email }: Props) => {
             <DropdownMenuTrigger asChild>
               <EllipsisVerticalIcon className="cursor-pointer" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" onCloseAutoFocus={(e) => e.preventDefault()}>
               <DropdownMenuGroup>
                 <DropdownMenuItem>
                   <Link href={`/contacts/${id}`} className="dropdown-menu-item">
                     <UserIcon />
                     <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={`/contacts/${id}/edit`} className="dropdown-menu-item">
+                    <PencilIcon />
+                    <span>Edit</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
