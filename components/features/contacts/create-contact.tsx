@@ -16,10 +16,9 @@ const CreateContact = ({ companies }: Props) => {
 
   const handleSubmit = (data: BaseUserSchema) => {
     createContactAsync(data, {
-      onSuccess(data) {
+      onSuccess() {
         toast.success('Contact created successfully');
         router.push('/');
-        console.log('data na FE', data);
       },
       onError(error) {
         console.log('error u onError', error);

@@ -53,7 +53,6 @@ export const POST = async (req: NextRequest) => {
     );
 
     if (data.company) {
-      console.log('IMAAAAAAAAAAAAAAADSADASDASDASDASDASDASDASDAASd');
       await axios.post(`/associations/Contacts/Companies/batch/create`, {
         inputs: [
           {

@@ -26,7 +26,6 @@ const UpdateContact = ({ contact, companies, contactId }: Props) => {
           router.push('/');
         },
         onError(error) {
-          console.log('error u onError na FE', error);
           toast.error(error.message);
         },
       },
