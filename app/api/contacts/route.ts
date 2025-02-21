@@ -26,23 +26,17 @@ export async function GET(req: NextRequest) {
 }
 
 export const POST = async (req: NextRequest) => {
-  const API_KEY = process.env.HUBSPOT_API_KEY || '';
-
   try {
+    const API_KEY = process.env.HUBSPOT_API_KEY || '';
+
     const data: BaseUserSchema = await req.json();
 
-    // const associations = [];
+    console.log('data', data);
+
+    // let association = [];
 
     // if (data.company) {
-    // associations.push({
-    //   to: { id: data.company },
-    //   types: [
-    //     {
-    //       associationCategory: 'HUBSPOT_DEFINED',
-    //       associationTypeId: 279,
-    //     },
-    //   ],
-    // });
+    //   association
     // }
 
     const response = await axios.post(
@@ -56,7 +50,7 @@ export const POST = async (req: NextRequest) => {
           phone: data.phone,
           country: data.country,
           city: data.city,
-          company: data.company,
+          // company: data.company,
         },
       },
       {
@@ -67,10 +61,30 @@ export const POST = async (req: NextRequest) => {
     );
 
     if (data.company) {
-      console.log('daaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-    }
+      console.log('IMAAAAAAAAAAAAAAADSADASDASDASDASDASDASDASDAASd');
+      const associationResponse = await axios.post(
+        `/associations/Contacts/Companies/batch/create`,
+        {
+          inputs: [
+            {
+              from: {
+                id: response.data.id,
+              },
+              to: {
+                id: data.company,
+              },
+              type: 'contact_to_company',
+            },
+          ],
+        },
+      );
 
-    console.log('RESPONSE DATA U ROUTE', response.data);
+      console.log(
+        'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+        associationResponse.status,
+        associationResponse.data,
+      );
+    }
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {
@@ -79,3 +93,33 @@ export const POST = async (req: NextRequest) => {
     }
   }
 };
+
+// if (data.company) {
+//   console.log(
+//     'DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+//   );
+//   const associationResponse = await axios.post(
+//     `/associations/Contacts/Companies/batch/create`,
+//     {
+//       inputs: [
+//         {
+//           from: {
+//             id: response.data.id,
+//           },
+//           to: {
+//             id: data.company,
+//           },
+//           type: 'contact_to_company',
+//         },
+//       ],
+//     },
+//     {
+//       headers: {
+//         Authorization: `Bearer ${API_KEY}`,
+//       },
+//     },
+//   );
+
+//   console.log('associationResponse STATUS', associationResponse.status);
+//   console.log('associationResponse DATA', associationResponse.data);
+// }

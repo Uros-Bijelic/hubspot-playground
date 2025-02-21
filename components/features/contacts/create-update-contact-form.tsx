@@ -16,7 +16,7 @@ export const baseUserSchema = z.object({
   phone: z.string().trim().optional(),
   country: z.string().trim().optional(),
   city: z.string().trim().optional(),
-  company: z.string().trim().optional(),
+  company: z.string().trim().min(1, 'Company is required'),
 });
 
 export type BaseUserSchema = z.infer<typeof baseUserSchema>;
@@ -58,7 +58,7 @@ const CreateUpdateContactForm = ({ defaultData, onSubmitData, companies }: Props
   const companiesOptions = companies.map(({ id, properties }) => ({
     id,
     label: properties.name,
-    value: properties.name,
+    value: id,
     disabled: !id,
   }));
 
