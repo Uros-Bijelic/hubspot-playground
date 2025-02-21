@@ -31,14 +31,6 @@ export const POST = async (req: NextRequest) => {
 
     const data: BaseUserSchema = await req.json();
 
-    console.log('data', data);
-
-    // let association = [];
-
-    // if (data.company) {
-    //   association
-    // }
-
     const response = await axios.post(
       '/objects/contacts',
       {
@@ -62,28 +54,19 @@ export const POST = async (req: NextRequest) => {
 
     if (data.company) {
       console.log('IMAAAAAAAAAAAAAAADSADASDASDASDASDASDASDASDAASd');
-      const associationResponse = await axios.post(
-        `/associations/Contacts/Companies/batch/create`,
-        {
-          inputs: [
-            {
-              from: {
-                id: response.data.id,
-              },
-              to: {
-                id: data.company,
-              },
-              type: 'contact_to_company',
+      await axios.post(`/associations/Contacts/Companies/batch/create`, {
+        inputs: [
+          {
+            from: {
+              id: response.data.id,
             },
-          ],
-        },
-      );
-
-      console.log(
-        'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-        associationResponse.status,
-        associationResponse,
-      );
+            to: {
+              id: data.company,
+            },
+            type: 'contact_to_company',
+          },
+        ],
+      });
     }
 
     return NextResponse.json(response.data, { status: 200 });
@@ -93,33 +76,3 @@ export const POST = async (req: NextRequest) => {
     }
   }
 };
-
-// if (data.company) {
-//   console.log(
-//     'DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-//   );
-//   const associationResponse = await axios.post(
-//     `/associations/Contacts/Companies/batch/create`,
-//     {
-//       inputs: [
-//         {
-//           from: {
-//             id: response.data.id,
-//           },
-//           to: {
-//             id: data.company,
-//           },
-//           type: 'contact_to_company',
-//         },
-//       ],
-//     },
-//     {
-//       headers: {
-//         Authorization: `Bearer ${API_KEY}`,
-//       },
-//     },
-//   );
-
-//   console.log('associationResponse STATUS', associationResponse.status);
-//   console.log('associationResponse DATA', associationResponse.data);
-// }

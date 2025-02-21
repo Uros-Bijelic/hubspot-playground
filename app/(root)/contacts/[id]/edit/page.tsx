@@ -26,9 +26,7 @@ const EditContactPage = async ({ params }: Props) => {
     getCompanies(BASE_URL),
   ]);
 
-  console.log('companies', companies);
-
-  return <UpdateContact companies={companies.results} contact={contact} />;
+  return <UpdateContact companies={companies.results} contact={contact} contactId={contactId} />;
 };
 
 export default EditContactPage;

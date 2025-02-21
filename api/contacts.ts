@@ -43,3 +43,14 @@ export const createContact = async (data: BaseUserSchema) => {
     }
   }
 };
+
+export const updateContact = async (id: string, data: BaseUserSchema) => {
+  try {
+    const response = await axios.patch(`/api/contacts/${id}`, data);
+    return response.data;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log('Error deleting contact', error.message);
+    }
+  }
+};
