@@ -35,10 +35,8 @@ export const deleteContact = async (id: string) => {
 
 export const createContact = async (data: BaseUserSchema) => {
   try {
-    const response = await axios.post('/api/contacts', {
-      data,
-    });
-    console.log('response u creteContact function', response);
+    const response = await axios.post('/api/contacts', data);
+    return response.data;
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error deleting contact', error.message);

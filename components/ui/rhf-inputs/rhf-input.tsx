@@ -29,7 +29,11 @@ const RHFInput = ({ name, label, description, ...rest }: RHFInput) => {
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Input {...field} {...rest} />
+            <Input
+              {...field}
+              {...rest}
+              className="focus-visible::ring-violet-500 focus-visible:ring-1"
+            />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

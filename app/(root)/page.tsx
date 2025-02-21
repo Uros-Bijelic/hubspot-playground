@@ -24,6 +24,8 @@ const Home = () => {
 
   const ownerFullName = `${owner?.firstName} ${owner?.lastName}`;
 
+  console.log('contacts data', contactsData);
+
   const handleIncrementPage = () => {
     setPage((prevPage) => prevPage + 1);
     setUrlToFetch(apiPages.after);

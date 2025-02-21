@@ -3,6 +3,7 @@
 import HubspotButton from '@/components/ui/hubspot-button';
 import RHFInput from '@/components/ui/rhf-inputs/rhf-input';
 import RHFSelect from '@/components/ui/rhf-inputs/rhf-select';
+import { Company } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -16,7 +17,6 @@ export const baseUserSchema = z.object({
   country: z.string().trim().optional(),
   city: z.string().trim().optional(),
   company: z.string().trim().optional(),
-  contactOwner: z.string().trim().optional(),
 });
 
 export type BaseUserSchema = z.infer<typeof baseUserSchema>;
@@ -24,6 +24,7 @@ export type BaseUserSchema = z.infer<typeof baseUserSchema>;
 type Props = {
   defaultData?: BaseUserSchema;
   onSubmitData: (data: BaseUserSchema) => void;
+  companies: Company[];
 };
 
 const defaultValues = {
@@ -38,7 +39,7 @@ const defaultValues = {
   contactOwner: '',
 };
 
-const CreateUpdateContactForm = ({ defaultData, onSubmitData }: Props) => {
+const CreateUpdateContactForm = ({ defaultData, onSubmitData, companies }: Props) => {
   const methods = useForm<BaseUserSchema>({
     resolver: zodResolver(baseUserSchema),
     defaultValues: defaultData || defaultValues,
@@ -47,7 +48,6 @@ const CreateUpdateContactForm = ({ defaultData, onSubmitData }: Props) => {
   const { handleSubmit } = methods;
 
   const onSubmit = (data: BaseUserSchema) => {
-    console.log('data', data);
     try {
       onSubmitData(data);
     } catch (error) {
@@ -55,30 +55,36 @@ const CreateUpdateContactForm = ({ defaultData, onSubmitData }: Props) => {
     }
   };
 
+  const companiesOptions = companies.map(({ id, properties }) => ({
+    id,
+    label: properties.name,
+    value: properties.name,
+    disabled: !id,
+  }));
+
   return (
-    <div className="mx-auto flex w-[min(800px,100%)] flex-col gap-2 p-2 sm:gap-4 sm:p-4">
+    <div className="mx-auto flex w-[min(800px,100%)] flex-col items-center gap-2 p-2 sm:gap-4 sm:p-4">
       <h2 className="d2-bold">Create New Contact</h2>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col sm:gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto flex w-full flex-1 flex-col">
           <div className="flex flex-col gap-4 sm:flex-row">
-            <div className="flex w-[min(400px,100%)] flex-col gap-2 sm:gap-4">
+            <div className="mx-auto flex w-[min(400px,100%)] flex-col gap-2 sm:gap-4">
               <p className="p1-bold text-violet-500">Required</p>
               <RHFInput label="First name" placeholder="First name" name="firstName" />
               <RHFInput label="Last name" placeholder="Last name" name="lastName" />
               <RHFInput label="Email" placeholder="Email" name="email" />
             </div>
-            <div className="flex w-[min(400px,100%)] flex-col gap-2 sm:gap-4">
+            <div className="mx-auto flex w-[min(400px,100%)] flex-col gap-2 sm:gap-4">
               <p className="p1-bold text-violet-500">Optional</p>
               <RHFInput label="Job Title" placeholder="Job Title" name="jobTitle" />
               <RHFInput label="Phone number" placeholder="Phone number" name="phone" />
               <RHFInput label="Country" placeholder="Country" name="country" />
               <RHFInput label="City" placeholder="City" name="city" />
-              <RHFSelect label="Company" placeholder="Company" name="company" options={[]} />
               <RHFSelect
-                label="Contact Owner"
-                placeholder="Contact Owner"
-                name="contactOwner"
-                options={[]}
+                label="Company"
+                placeholder="Company"
+                name="company"
+                options={companiesOptions}
               />
             </div>
           </div>

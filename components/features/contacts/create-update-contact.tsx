@@ -1,31 +1,33 @@
 'use client';
 
 import { useCreateContact } from '@/lib/hooks/mutations/use-create-contact';
-import type { Company, Owner } from '@/types';
+import type { Company } from '@/types';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import CreateUpdateContactForm, { BaseUserSchema } from './create-update-contact-form';
 
 type Props = {
   companies: Company[];
-  owners: Owner[];
 };
 
-const CreateUpdateContact = ({}: Props) => {
-  const { data, mutateAsync: createContactAsync } = useCreateContact();
-
-  console.log('data', data);
+const CreateUpdateContact = ({ companies }: Props) => {
+  const router = useRouter();
+  const { mutateAsync: createContactAsync } = useCreateContact();
 
   const handleSubmit = (data: BaseUserSchema) => {
     createContactAsync(data, {
-      onSuccess(data) {
-        console.log('data u sucess', data);
+      onSuccess() {
+        toast.success('Contact created successfully');
+        router.push('/');
       },
       onError(error) {
         console.log('error u onError', error);
+        toast.error(error.message);
       },
     });
   };
 
-  return <CreateUpdateContactForm onSubmitData={handleSubmit} />;
+  return <CreateUpdateContactForm onSubmitData={handleSubmit} companies={companies} />;
 };
 
 export default CreateUpdateContact;
