@@ -7,12 +7,11 @@ export type Contact = {
     hs_object_id: string;
     lastmodifieddate: string;
     lastname: string;
-    country: string;
-    city: string;
-    phone: string;
-    company: string;
-    jobtitle: string;
-    [key: string]: string;
+    country?: string;
+    city?: string;
+    phone?: string;
+    company?: string;
+    jobtitle?: string;
   };
   createdAt: string;
   updatedAt: string;
