@@ -50,7 +50,7 @@ export const POST = async (req: NextRequest) => {
           phone: data.phone,
           country: data.country,
           city: data.city,
-          // company: data.company,
+          company: data.company,
         },
       },
       {
@@ -82,7 +82,7 @@ export const POST = async (req: NextRequest) => {
       console.log(
         'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
         associationResponse.status,
-        associationResponse.data,
+        associationResponse,
       );
     }
 

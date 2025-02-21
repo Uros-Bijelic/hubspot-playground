@@ -11,7 +11,7 @@ import HubspotButton from '@/components/ui/hubspot-button';
 import HubSpotDialog from '@/components/ui/hubspot-dialog';
 import { useDeleteContact } from '@/lib/hooks/mutations/use-delete-contact';
 import { generateInitials } from '@/lib/utils';
-import { EllipsisVerticalIcon, Trash2Icon, UserIcon } from 'lucide-react';
+import { EllipsisVerticalIcon, PencilIcon, Trash2Icon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -77,6 +77,12 @@ const ContactCard = ({ id, firstName, lastName, email }: Props) => {
                   <Link href={`/contacts/${id}`} className="dropdown-menu-item">
                     <UserIcon />
                     <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={`/contacts/${id}/edit`} className="dropdown-menu-item">
+                    <PencilIcon />
+                    <span>Edit</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={(e) => e.preventDefault()}>

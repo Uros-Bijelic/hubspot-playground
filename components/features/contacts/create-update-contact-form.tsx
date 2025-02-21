@@ -3,7 +3,7 @@
 import HubspotButton from '@/components/ui/hubspot-button';
 import RHFInput from '@/components/ui/rhf-inputs/rhf-input';
 import RHFSelect from '@/components/ui/rhf-inputs/rhf-select';
-import { Company } from '@/types';
+import type { Company, Contact } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -16,33 +16,30 @@ export const baseUserSchema = z.object({
   phone: z.string().trim().optional(),
   country: z.string().trim().optional(),
   city: z.string().trim().optional(),
-  company: z.string().trim().min(1, 'Company is required'),
+  company: z.string().trim().optional(),
 });
 
 export type BaseUserSchema = z.infer<typeof baseUserSchema>;
 
 type Props = {
-  defaultData?: BaseUserSchema;
+  contact?: Contact;
   onSubmitData: (data: BaseUserSchema) => void;
   companies: Company[];
 };
 
-const defaultValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  jobTitle: '',
-  phone: '',
-  country: '',
-  city: '',
-  company: '',
-  contactOwner: '',
-};
-
-const CreateUpdateContactForm = ({ defaultData, onSubmitData, companies }: Props) => {
+const CreateUpdateContactForm = ({ contact, onSubmitData, companies }: Props) => {
   const methods = useForm<BaseUserSchema>({
     resolver: zodResolver(baseUserSchema),
-    defaultValues: defaultData || defaultValues,
+    defaultValues: {
+      firstName: contact?.properties.firstname || '',
+      lastName: contact?.properties.lastname || '',
+      email: contact?.properties.email || '',
+      country: contact?.properties.country || '',
+      city: contact?.properties.city || '',
+      phone: contact?.properties.phone || '',
+      company: contact?.properties.company || '',
+      jobTitle: contact?.properties.jobtitle || '',
+    },
   });
 
   const { handleSubmit } = methods;

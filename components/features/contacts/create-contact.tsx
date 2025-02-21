@@ -2,7 +2,7 @@
 
 import { useCreateContact } from '@/lib/hooks/mutations/use-create-contact';
 import type { Company } from '@/types';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import CreateUpdateContactForm, { BaseUserSchema } from './create-update-contact-form';
 
@@ -10,15 +10,15 @@ type Props = {
   companies: Company[];
 };
 
-const CreateUpdateContact = ({ companies }: Props) => {
-  // const router = useRouter();
+const CreateContact = ({ companies }: Props) => {
+  const router = useRouter();
   const { mutateAsync: createContactAsync } = useCreateContact();
 
   const handleSubmit = (data: BaseUserSchema) => {
     createContactAsync(data, {
       onSuccess(data) {
         toast.success('Contact created successfully');
-        // router.push('/');
+        router.push('/');
         console.log('data na FE', data);
       },
       onError(error) {
@@ -31,4 +31,4 @@ const CreateUpdateContact = ({ companies }: Props) => {
   return <CreateUpdateContactForm onSubmitData={handleSubmit} companies={companies} />;
 };
 
-export default CreateUpdateContact;
+export default CreateContact;
