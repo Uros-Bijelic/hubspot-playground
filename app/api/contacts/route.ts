@@ -3,14 +3,19 @@ import { BaseUserSchema } from '@/components/features/contacts/create-update-con
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  const limit = req.nextUrl.searchParams.get('limit');
-  const archived = req.nextUrl.searchParams.get('archived');
-  const urlToFetch = req.nextUrl.searchParams.get('urlToFetch');
-
-  const url = urlToFetch ? urlToFetch : `/objects/contacts?limit=${limit}&archived=${archived}`;
-
   try {
-    const response = await axios.get(url);
+    const API_KEY = process.env.HUBSPOT_API_KEY || '';
+    const limit = req.nextUrl.searchParams.get('limit');
+    const archived = req.nextUrl.searchParams.get('archived');
+    const urlToFetch = req.nextUrl.searchParams.get('urlToFetch');
+
+    const url = urlToFetch ? urlToFetch : `/objects/contacts?limit=${limit}&archived=${archived}`;
+
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    });
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {
@@ -28,7 +33,6 @@ export async function GET(req: NextRequest) {
 export const POST = async (req: NextRequest) => {
   try {
     const API_KEY = process.env.HUBSPOT_API_KEY || '';
-
     const data: BaseUserSchema = await req.json();
 
     const response = await axios.post(

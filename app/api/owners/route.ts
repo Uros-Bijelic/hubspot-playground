@@ -3,14 +3,18 @@ import { NextResponse } from 'next/server';
 
 export const GET = async () => {
   try {
-    const response = await axios.get(`/owners`);
+    const API_KEY = process.env.HUBSPOT_API_KEY || '';
+    const response = await axios.get(`/owners`, {
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    });
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error fetching owners', error.message);
 
-      // for now i till figure out error handling for hubspot
       return NextResponse.json(error.message);
     }
   }
