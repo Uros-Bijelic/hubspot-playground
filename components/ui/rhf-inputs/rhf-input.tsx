@@ -32,7 +32,7 @@ const RHFInput = ({ name, label, description, ...rest }: RHFInput) => {
             <Input
               {...field}
               {...rest}
-              className="focus-visible::ring-violet-500 focus-visible:ring-1"
+              className="focus-visible:ring-1 focus-visible:ring-violet-500"
             />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}

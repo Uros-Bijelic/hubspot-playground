@@ -21,7 +21,6 @@ const CreateContact = ({ companies }: Props) => {
         router.push('/');
       },
       onError(error) {
-        console.log('error u onError', error);
         toast.error(error.message);
       },
     });

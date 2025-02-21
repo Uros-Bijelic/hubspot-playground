@@ -61,7 +61,7 @@ const CreateUpdateContactForm = ({ contact, onSubmitData, companies }: Props) =>
 
   return (
     <div className="mx-auto flex w-[min(800px,100%)] flex-col items-center gap-2 p-2 sm:gap-4 sm:p-4">
-      <h2 className="d2-bold">Create New Contact</h2>
+      <h2 className="d2-bold">{contact ? 'Update' : 'Create New'} Contact</h2>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto flex w-full flex-1 flex-col">
           <div className="flex flex-col gap-4 sm:flex-row">
