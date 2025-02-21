@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
   try {
+    const API_KEY = process.env.HUBSPOT_API_KEY || '';
     const contactId = (await params).id;
 
     if (!contactId) {
@@ -12,6 +13,11 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: 
 
     const response = await axios.get(
       `/objects/contacts/${contactId}?properties=firstname,lastname,email,jobtitle,phone,country,city,company`,
+      {
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+      },
     );
 
     return NextResponse.json(response.data, { status: 200 });
@@ -24,13 +30,18 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: 
 
 export const DELETE = async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
   try {
+    const API_KEY = process.env.HUBSPOT_API_KEY || '';
     const contactId = (await params).id;
 
     if (!contactId) {
       throw new Error('Contact ID not found.');
     }
 
-    const response = await axios.delete(`/objects/contacts/${contactId}`);
+    const response = await axios.delete(`/objects/contacts/${contactId}`, {
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    });
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {
@@ -73,22 +84,28 @@ export const PATCH = async (req: NextRequest, { params }: { params: Promise<{ id
       },
     );
 
-    console.log('response data u patch ruti after update', response.data);
-
     if (data.company) {
-      await axios.post(`/associations/Contacts/Companies/batch/create`, {
-        inputs: [
-          {
-            from: {
-              id: response.data.id,
+      await axios.post(
+        `/associations/Contacts/Companies/batch/create`,
+        {
+          inputs: [
+            {
+              from: {
+                id: response.data.id,
+              },
+              to: {
+                id: data.company,
+              },
+              type: 'contact_to_company',
             },
-            to: {
-              id: data.company,
-            },
-            type: 'contact_to_company',
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
           },
-        ],
-      });
+        },
+      );
     }
 
     return NextResponse.json(response.data, { status: 200 });
