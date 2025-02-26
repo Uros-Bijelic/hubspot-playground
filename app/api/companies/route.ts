@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 export const GET = async () => {
   try {
     const API_KEY = process.env.HUBSPOT_API_KEY || '';
+
     const response = await axios('/objects/companies', {
       headers: {
         Authorization: `Bearer ${API_KEY}`,
