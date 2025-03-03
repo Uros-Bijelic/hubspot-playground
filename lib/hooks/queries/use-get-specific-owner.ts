@@ -1,5 +1,5 @@
-import { QUERY_KEYS } from '@/api/axios.config';
 import { getSpecificOwner } from '@/api/owners';
+import { QUERY_KEYS } from '@/api/queies-endpoints';
 import type { Owner } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 

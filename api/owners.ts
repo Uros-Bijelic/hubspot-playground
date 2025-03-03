@@ -1,9 +1,8 @@
-import { axios } from './axios.config';
-
 export const getOwners = async () => {
   try {
-    const response = await axios.get(`/api/owners/`);
-    return response.data;
+    const BASE_URL = process.env.APP_BASE_URL || '';
+    const response = await fetch(`${BASE_URL}/api/owners/`);
+    return response.json();
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error getting owners', error.message);
@@ -20,12 +19,11 @@ type GetSpecificOwnerArgs = {
 
 export const getSpecificOwner = async ({ ownerId }: GetSpecificOwnerArgs) => {
   try {
-    const response = await axios.get(`/api/owners/${ownerId}`);
-    return response.data;
+    const BASE_URL = process.env.APP_BASE_URL || '';
+    const response = await fetch(`${BASE_URL}/api/owners/${ownerId}`);
+    return await response.json();
   } catch (error) {
     if (error instanceof Error) {
-      console.log('Error getting specific owner', error.message);
-
       throw new Error(error.message);
     }
   }

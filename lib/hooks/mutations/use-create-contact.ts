@@ -1,5 +1,5 @@
-import { QUERY_KEYS } from '@/api/axios.config';
 import { createContact } from '@/api/contacts';
+import { QUERY_KEYS } from '@/api/queies-endpoints';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useCreateContact = () => {

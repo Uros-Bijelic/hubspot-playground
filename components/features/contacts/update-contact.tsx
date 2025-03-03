@@ -2,7 +2,6 @@
 
 import { useUpdateContact } from '@/lib/hooks/mutations/use-update-contact';
 import type { Company, Contact } from '@/types';
-import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import CreateUpdateContactForm, { type BaseUserSchema } from './create-update-contact-form';
 
@@ -13,8 +12,6 @@ type Props = {
 };
 
 const UpdateContact = ({ contact, companies, contactId }: Props) => {
-  const router = useRouter();
-
   const { mutateAsync: updateContactAsync } = useUpdateContact();
 
   const handleSubmit = (data: BaseUserSchema) => {
@@ -23,7 +20,6 @@ const UpdateContact = ({ contact, companies, contactId }: Props) => {
       {
         onSuccess() {
           toast.success('Contact updated successfully');
-          router.push('/');
         },
         onError(error) {
           toast.error(error.message);

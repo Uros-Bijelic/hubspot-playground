@@ -1,17 +1,13 @@
 import { BaseUserSchema } from '@/components/features/contacts/create-update-contact-form';
-import { axios } from './axios.config';
 
-export const getContacts = async (limit = 8, urlToFetch = '', archived = false) => {
+export const getContacts = async (limit = 8, after = '', archived = false) => {
   try {
-    const response = await axios.get(`/api/contacts`, {
-      params: {
-        limit,
-        urlToFetch,
-        archived,
-      },
-    });
+    const BASE_URL = process.env.APP_BASE_URL || '';
+    const response = await fetch(
+      `${BASE_URL}/api/contacts?limit=${limit}&archived=${archived}&after=${after}`,
+    );
 
-    return response.data;
+    return response.json();
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error getting contacts', error.message);
@@ -23,9 +19,12 @@ export const getContacts = async (limit = 8, urlToFetch = '', archived = false) 
 
 export const deleteContact = async (id: string) => {
   try {
-    const response = await axios.delete(`/api/contacts/${id}`);
+    const BASE_URL = process.env.APP_BASE_URL || '';
+    const response = await fetch(`${BASE_URL}/api/contacts/${id}`, {
+      method: 'DELETE',
+    });
 
-    return response.data;
+    return response.json();
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error deleting contact', error.message);
@@ -35,8 +34,12 @@ export const deleteContact = async (id: string) => {
 
 export const createContact = async (data: BaseUserSchema) => {
   try {
-    const response = await axios.post('/api/contacts', data);
-    return response.data;
+    const BASE_URL = process.env.APP_BASE_URL || '';
+    const response = await fetch(`${BASE_URL}/api/contacts`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    return response.json();
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error deleting contact', error.message);
@@ -46,8 +49,12 @@ export const createContact = async (data: BaseUserSchema) => {
 
 export const updateContact = async (id: string, data: BaseUserSchema) => {
   try {
-    const response = await axios.patch(`/api/contacts/${id}`, data);
-    return response.data;
+    const BASE_URL = process.env.APP_BASE_URL || '';
+    const response = await fetch(`${BASE_URL}/api/contacts/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+    return response.json();
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error deleting contact', error.message);
