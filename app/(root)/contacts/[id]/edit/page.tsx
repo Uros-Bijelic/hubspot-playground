@@ -1,17 +1,18 @@
 import UpdateContact from '@/components/features/contacts/update-contact';
-import { typedFetch } from '@/lib/utils';
-import type { Company, Contact } from '@/types';
+// import type { Company, Contact } from '@/types';
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
-const getContact = (baseUrl: string, contactId: string) => {
-  return typedFetch<Contact>({ url: `${baseUrl}/api/contacts/${contactId}` });
+const getContact = async (baseUrl: string, contactId: string) => {
+  const response = await fetch(`${baseUrl}/api/contacts/${contactId}`);
+  return await response.json();
 };
 
-const getCompanies = (baseUrl: string) => {
-  return typedFetch<{ results: Company[] }>({ url: `${baseUrl}/api/companies` });
+const getCompanies = async (baseUrl: string) => {
+  const response = await fetch(`${baseUrl}/api/companies`);
+  return await response.json();
 };
 
 const EditContactPage = async ({ params }: Props) => {

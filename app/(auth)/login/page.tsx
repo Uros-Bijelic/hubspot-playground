@@ -33,14 +33,12 @@ const Login = () => {
   const {
     formState: { isValid, isSubmitting },
     handleSubmit,
-    getValues,
+    // getValues,
   } = methods;
 
-  const ownerId = getValues('ownerId');
+  // const ownerId = getValues('ownerId');
 
-  const { data: currentOwner, isSuccess: isSuccessCurrentOwner } = useGetSpecificOwner({
-    ownerId,
-  });
+  const { data: currentOwner, isSuccess: isSuccessCurrentOwner } = useGetSpecificOwner();
 
   const onSubmit = () => {
     console.log('isSuccessCurrentOwner', isSuccessCurrentOwner);

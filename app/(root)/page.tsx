@@ -20,6 +20,7 @@ const Home = () => {
     isPending: isPendingContacts,
     refetch,
   } = useGetContacts(page, urlToFetch);
+
   const { data: owner, isPending: isPendingOwner } = useGetSpecificOwner();
 
   const ownerFullName = `${owner?.firstName} ${owner?.lastName}`;
@@ -37,12 +38,14 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (contactsData?.paging?.next.link && page === 1) {
-      setApiPages(() => ({ before: '', after: contactsData?.paging?.next.link }));
-    } else if (contactsData?.paging?.next.link && page > 1) {
+    if (contactsData?.paging?.next.after && page === 1) {
+      console.log('1');
+      setApiPages(() => ({ before: '', after: contactsData?.paging?.next.after }));
+    } else if (contactsData?.paging?.next.after && page > 1) {
+      console.log('2');
       setApiPages((prevApiPages) => ({
         before: prevApiPages.after,
-        after: contactsData?.paging?.next.link,
+        after: contactsData?.paging?.next.after,
       }));
     }
   }, [contactsData, page]);

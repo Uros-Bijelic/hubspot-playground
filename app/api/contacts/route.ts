@@ -1,26 +1,27 @@
-import { typedFetch } from '@/api/axios.config';
 import { BaseUserSchema } from '@/components/features/contacts/create-update-contact-form';
-import { Contact } from '@/types';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
     const API_KEY = process.env.HUBSPOT_API_KEY || '';
-    const BASE_API_URL = process.env.HUBSPOT_BASE_URL || '';
+    const BASE_URL = process.env.HUBSPOT_BASE_URL || '';
     const limit = req.nextUrl.searchParams.get('limit');
     const archived = req.nextUrl.searchParams.get('archived');
-    const urlToFetch = req.nextUrl.searchParams.get('urlToFetch');
+    const after = req.nextUrl.searchParams.get('after');
 
-    const url = urlToFetch
-      ? urlToFetch
-      : `${BASE_API_URL}/objects/contacts?limit=${limit}&archived=${archived}`;
+    let url = `${BASE_URL}/objects/contacts?limit=${limit}&archived=${archived}`;
 
-    const response = await typedFetch<{ results: Contact[] }>({
-      url,
-      headers: { Authorization: `Bearer ${API_KEY}` },
+    if (after) {
+      url = `${url}&after=${after}`;
+    }
+
+    const response = await fetch(url, {
+      headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
     });
 
-    return NextResponse.json(response, { status: 200 });
+    const data = await response.json();
+
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -36,55 +37,55 @@ export async function GET(req: NextRequest) {
 export const POST = async (req: NextRequest) => {
   try {
     const API_KEY = process.env.HUBSPOT_API_KEY || '';
-    const BASE_API_URL = process.env.HUBSPOT_BASE_URL || '';
-    const data: BaseUserSchema = await req.json();
+    const BASE_URL = process.env.HUBSPOT_BASE_URL || '';
+    const body: BaseUserSchema = await req.json();
 
-    const response = await typedFetch<Contact>({
-      url: `${BASE_API_URL}/objects/contacts`,
+    const response = await fetch(`${BASE_URL}/objects/contacts`, {
       method: 'POST',
-      body: {
+      body: JSON.stringify({
         properties: {
-          firstname: data.firstName,
-          lastname: data.lastName,
-          email: data.email,
-          jobtitle: data.jobTitle,
-          phone: data.phone,
-          country: data.country,
-          city: data.city,
-          company: data.company,
+          firstname: body.firstName,
+          lastname: body.lastName,
+          email: body.email,
+          jobtitle: body.jobTitle,
+          phone: body.phone,
+          country: body.country,
+          city: body.city,
+          company: body.company,
         },
-      },
+      }),
       headers: {
         Authorization: `Bearer ${API_KEY}`,
+        'Content-Type': 'application/json',
       },
     });
 
-    console.log('response', response);
+    const data = await response.json();
 
-    if (data.company) {
-      await typedFetch({
-        url: `${BASE_API_URL}/associations/Contacts/Companies/batch/create`,
+    if (body.company) {
+      await fetch(`${BASE_URL}/associations/Contacts/Companies/batch/create`, {
         method: 'POST',
-        body: {
+        body: JSON.stringify({
           inputs: [
             {
               from: {
-                id: response.id,
+                id: data.id,
               },
               to: {
-                id: data.company,
+                id: body.company,
               },
               type: 'contact_to_company',
             },
           ],
-        },
+        }),
         headers: {
           Authorization: `Bearer ${API_KEY}`,
+          'Content-Type': 'application/json',
         },
       });
     }
 
-    return NextResponse.json(response, { status: 200 });
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({ message: error.message });

@@ -1,5 +1,5 @@
-import { QUERY_KEYS } from '@/api/axios.config';
 import { getContacts } from '@/api/contacts';
+import { QUERY_KEYS } from '@/api/queies-endpoints';
 import type { Contact } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 

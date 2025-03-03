@@ -1,17 +1,20 @@
-import { axios } from '@/api/axios.config';
 import { NextResponse } from 'next/server';
 
 export const GET = async () => {
   try {
+    const BASE_URL = process.env.HUBSPOT_BASE_URL || '';
     const API_KEY = process.env.HUBSPOT_API_KEY || '';
 
-    const response = await axios('/objects/companies', {
+    const response = await fetch(`${BASE_URL}/objects/companies`, {
       headers: {
         Authorization: `Bearer ${API_KEY}`,
+        'Content-Type': 'application/json',
       },
     });
 
-    return NextResponse.json(response.data, { status: 200 });
+    const data = await response.json();
+
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(

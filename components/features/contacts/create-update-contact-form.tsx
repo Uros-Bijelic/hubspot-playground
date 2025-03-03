@@ -28,7 +28,7 @@ type Props = {
 };
 
 const CreateUpdateContactForm = ({ contact, onSubmitData, companies }: Props) => {
-  const methods = useForm<BaseUserSchema>({
+  const form = useForm<BaseUserSchema>({
     resolver: zodResolver(baseUserSchema),
     defaultValues: {
       firstName: contact?.properties.firstname || '',
@@ -42,7 +42,7 @@ const CreateUpdateContactForm = ({ contact, onSubmitData, companies }: Props) =>
     },
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit } = form;
 
   const onSubmit = (data: BaseUserSchema) => {
     try {
@@ -62,7 +62,7 @@ const CreateUpdateContactForm = ({ contact, onSubmitData, companies }: Props) =>
   return (
     <div className="mx-auto flex w-[min(800px,100%)] flex-col items-center gap-2 p-2 sm:gap-4 sm:p-4">
       <h2 className="d2-bold">{contact ? 'Update' : 'Create New'} Contact</h2>
-      <FormProvider {...methods}>
+      <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto flex w-full flex-1 flex-col">
           <div className="flex flex-col gap-4 sm:flex-row">
             <div className="mx-auto flex w-[min(400px,100%)] flex-col gap-2 sm:gap-4">

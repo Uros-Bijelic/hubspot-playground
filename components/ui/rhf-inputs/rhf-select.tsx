@@ -26,7 +26,7 @@ type RHFSelectProps = {
     id: string;
     value: string;
     label: string;
-    disabled: boolean;
+    disabled?: boolean;
   }[];
   description?: string;
 } & SelectProps;
