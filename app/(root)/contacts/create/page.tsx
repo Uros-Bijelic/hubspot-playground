@@ -1,12 +1,11 @@
-import CreateContact from '@/components/features/contacts/create-contact';
+import { getCompanies } from '@/api/companies';
+import CreateUpdateContactForm from '@/components/features/contacts/create-update-contact-form';
+import type { Company } from '@/types';
 
 const CreateContactPage = async () => {
-  const BASE_URL = process.env.APP_BASE_URL || '';
+  const companies: { results: Company[] } = await getCompanies();
 
-  const response = await fetch(`${BASE_URL}/api/companies`);
-  const companies = await response.json();
-
-  return <CreateContact companies={companies.results} />;
+  return <CreateUpdateContactForm companies={companies.results} />;
 };
 
 export default CreateContactPage;

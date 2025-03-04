@@ -1,33 +1,22 @@
-import UpdateContact from '@/components/features/contacts/update-contact';
-// import type { Company, Contact } from '@/types';
+import { getCompanies } from '@/api/companies';
+import { getContact } from '@/api/contacts';
+import CreateUpdateContactForm from '@/components/features/contacts/create-update-contact-form';
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
-const getContact = async (baseUrl: string, contactId: string) => {
-  const response = await fetch(`${baseUrl}/api/contacts/${contactId}`);
-  return await response.json();
-};
-
-const getCompanies = async (baseUrl: string) => {
-  const response = await fetch(`${baseUrl}/api/companies`);
-  return await response.json();
-};
-
 const EditContactPage = async ({ params }: Props) => {
-  const BASE_URL = process.env.APP_BASE_URL || '';
   const contactId = (await params).id;
 
   if (!contactId) {
     throw new Error('Contact Id is not available.');
   }
-  const [contact, companies] = await Promise.all([
-    getContact(BASE_URL, contactId),
-    getCompanies(BASE_URL),
-  ]);
+  const [contact, companies] = await Promise.all([getContact(contactId), getCompanies()]);
 
-  return <UpdateContact companies={companies.results} contact={contact} contactId={contactId} />;
+  if (!contact) throw new Error('User information not available');
+
+  return <CreateUpdateContactForm companies={companies.results} contact={contact} />;
 };
 
 export default EditContactPage;
