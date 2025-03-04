@@ -3,9 +3,14 @@
 import HubspotButton from '@/components/ui/hubspot-button';
 import RHFInput from '@/components/ui/rhf-inputs/rhf-input';
 import RHFSelect from '@/components/ui/rhf-inputs/rhf-select';
+import { useCreateContact } from '@/lib/hooks/mutations/use-create-contact';
+import { useUpdateContact } from '@/lib/hooks/mutations/use-update-contact';
 import type { Company, Contact } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+
 import { FormProvider, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 export const baseUserSchema = z.object({
@@ -23,11 +28,13 @@ export type BaseUserSchema = z.infer<typeof baseUserSchema>;
 
 type Props = {
   contact?: Contact;
-  onSubmitData: (data: BaseUserSchema) => void;
-  companies: Company[];
+  companies?: Company[];
 };
 
-const CreateUpdateContactForm = ({ contact, onSubmitData, companies }: Props) => {
+const CreateUpdateContactForm = ({ contact, companies }: Props) => {
+  const isEditPage = !!contact;
+  const router = useRouter();
+
   const form = useForm<BaseUserSchema>({
     resolver: zodResolver(baseUserSchema),
     defaultValues: {
@@ -42,22 +49,48 @@ const CreateUpdateContactForm = ({ contact, onSubmitData, companies }: Props) =>
     },
   });
 
+  const { mutateAsync: updateContactAsync } = useUpdateContact();
+  const { mutateAsync: createContactAsync } = useCreateContact();
+
   const { handleSubmit } = form;
 
   const onSubmit = (data: BaseUserSchema) => {
     try {
-      onSubmitData(data);
+      if (isEditPage) {
+        updateContactAsync(
+          { data, id: contact.id },
+          {
+            onSuccess() {
+              toast.success('Contact updated successfully');
+            },
+            onError(error) {
+              toast.error(error.message);
+            },
+          },
+        );
+      } else {
+        createContactAsync(data, {
+          onSuccess() {
+            toast.success('Contact created successfully');
+            router.push('/');
+          },
+          onError(error) {
+            toast.error(error.message);
+          },
+        });
+      }
     } catch (error) {
       console.log('Error create update contact', error);
     }
   };
 
-  const companiesOptions = companies.map(({ id, properties }) => ({
-    id,
-    label: properties.name,
-    value: id,
-    disabled: !id,
-  }));
+  const companiesOptions =
+    companies?.map(({ id, properties }) => ({
+      id,
+      label: properties.name,
+      value: id,
+      disabled: !id,
+    })) || [];
 
   return (
     <div className="mx-auto flex w-[min(800px,100%)] flex-col items-center gap-2 p-2 sm:gap-4 sm:p-4">

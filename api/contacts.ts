@@ -17,6 +17,18 @@ export const getContacts = async (limit = 8, after = '', archived = false) => {
   }
 };
 
+export const getContact = async (contactId: string) => {
+  try {
+    const BASE_URL = process.env.APP_BASE_URL || '';
+    const response = await fetch(`${BASE_URL}/api/contacts/${contactId}`);
+    return await response.json();
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+  }
+};
+
 export const deleteContact = async (id: string) => {
   try {
     const BASE_URL = process.env.APP_BASE_URL || '';
